@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0008
 type: change_record
-title: Dialogue開発にSelf-hostingを採用する
+title: Adopt Self-hosting for Dialogue development
 status: applied
 scope:
   project: dialogue
@@ -51,21 +51,21 @@ targets:
     after_revision: 1
     result: applied
     error: null
-reason: Dialogue自身をDialogueで開発し、Decision Captureの精度、運用負荷、競合処理を実利用から改善する
+reason: Develop Dialogue itself with Dialogue, and improve the accuracy of Decision Capture, the operational load, and conflict handling from real usage
 applied_at: "2026-07-16T04:29:45+09:00"
 applied_by: agent:codex
 ---
 
-# Dialogue開発にSelf-hostingを採用する
+# Adopt Self-hosting for Dialogue development
 
 ## Applied changes
 
-- Skill metadataで暗黙呼び出しを有効化した。
-- 会話から確定済みDecisionを抽出する手順をSkillへ追加した。
-- Dialogueの`AGENTS.md`へLocal Skill activationとbootstrap規則を追加した。
-- Project CharterへSelf-hosting原則を追加した。
-- Self-hostingの現在状態とremote未接続を記録した。
+- Enabled implicit invocation via the Skill metadata.
+- Added a procedure to the Skill for extracting decided facts from conversations.
+- Added Local Skill activation and bootstrap rules to Dialogue's `AGENTS.md`.
+- Added the Self-hosting principle to the Project Charter.
+- Recorded the current state of Self-hosting and the not-yet-connected remote.
 
 ## First dogfooding observation
 
-「その方針で進めましょう」は、Skill名を含まないが、直前の特定可能なSelf-hosting提案への明確な承認として解決できた。このChange Recordが最初の会話Decision Capture結果である。
+"Let's proceed with that approach" does not contain a Skill name, but it could be resolved as a clear approval of the immediately preceding, identifiable Self-hosting proposal. This Change Record is the first conversational Decision Capture result.

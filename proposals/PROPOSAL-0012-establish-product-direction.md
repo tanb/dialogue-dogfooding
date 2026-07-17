@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0012
 type: proposal
-title: Product Direction v1（決定の単一正本とAnti-rot、次の一歩とNorth Star）を正本化する
+title: Canonicalize Product Direction v1 (single source of truth for decisions, Anti-rot, next step, and North Star)
 status: approved
 scope:
   project: dialogue
@@ -30,8 +30,8 @@ extensions:
       subject_revision: 0
       decided_at: "2026-07-17T23:59:31+09:00"
       conditions:
-        - Turbovec検索層は正本ではなく派生readアクセラレータとして扱う
-        - 本方向性はSTATE-PRODUCT-SCOPE-001のスコープ契約を変更しない
+        - Treat the Turbovec search layer as a derived read accelerator, not the canonical record
+        - This direction does not change the scope contract of STATE-PRODUCT-SCOPE-001
 change_class: C3
 proposed_by: agent:claude
 targets:
@@ -41,7 +41,7 @@ targets:
 requested_changes:
   - field: thesis
     before: null
-    after: 意思決定した事実は一箇所にあるべきである（決定の単一正本）
+    after: Decided facts should live in one place (a single source of truth for decisions)
   - field: pillars
     before: null
     after:
@@ -51,7 +51,7 @@ requested_changes:
     before: null
     after:
       primary_differentiation: vs-agent-memory
-      promotional_headline: 人間のドキュメント管理ほど杜撰なものはない / DialogueはAgent向けGovernance Protocol
+      promotional_headline: Nothing is as sloppy as human document management / Dialogue is a Governance Protocol for agents
   - field: next-step
     before: null
     after: collision-and-rot-demo
@@ -62,33 +62,35 @@ requested_changes:
       constraint: derivative-read-accelerator-not-canonical
       scope: post-v1
 reason: >-
-  office-hours（2026-07-17）でユーザーが確定した製品方向性、ポジショニング、次の一歩、
-  North Starを正本化し、以後のAgentと人間が同じ方向性を根拠に判断できるようにする。
+  Canonicalize the product direction, positioning, next step, and North Star that the user finalized
+  during office hours (2026-07-17), so that agents and humans going forward can make decisions grounded
+  in the same direction.
 evidence_refs:
   - conversation:office-hours-2026-07-17
   - STATE-PRODUCT-SCOPE-001
 impact: >-
-  Product v1のスコープ契約と受入基準は不変。Anti-rotの「Agentによる継続整理」を製品約束として
-  初めて正本化し、Turbovec MCPをv1スコープ外の派生層North Starとして記録する。
+  The scope contract and acceptance criteria of Product v1 are unchanged. This canonicalizes, for the
+  first time, Anti-rot's "continuous cleanup by agents" as a product promise, and records the Turbovec
+  MCP as an out-of-v1-scope derived-layer North Star.
 ---
 
-# Product Direction v1を正本化する
+# Canonicalize Product Direction v1
 
 ## Decision
 
-ユーザーはoffice-hoursセッションで次を確定した。
+In the office-hours session, the user finalized the following.
 
-- Thesis:「意思決定した事実は一箇所にあるべきである」。Dialogueは決定の単一正本である。
-- キラー差別化に、陳腐化・重複を検知しAgentに整理させるAnti-rotの約束を加える。
-- 主差別化は対Agent memory、プロモーション見出しは対wikiとする。
-- 次の一歩はApproach A（衝突&腐敗の実演デモ）とする。
-- Turbovecを連携させたMCPによる高速な正本検索をNorth Starとして記録する。ただし正本ではなく派生readアクセラレータとし、v1スコープ外とする。
+- Thesis: "Decided facts should live in one place." Dialogue is the single source of truth for decisions.
+- Add to the killer differentiation the Anti-rot promise of detecting staleness and duplication and having agents clean them up.
+- The primary differentiation is versus agent memory; the promotional headline is versus wikis.
+- The next step is Approach A (a demo that showcases collisions and rot).
+- Record fast canonical search via a Turbovec-backed MCP as the North Star. However, treat it as a derived read accelerator rather than the canonical record, and keep it out of v1 scope.
 
 ## Approval evidence
 
-会話中のユーザー確定発言（抜粋）:
+User's finalizing statements during the conversation (excerpts):
 
-- 「意思決定した事実は一箇所にあるべきであるという思想を伝えたいです。」
-- 「dialogueでは情報の陳腐化、重複を検知し、Agentに整理させる約束を設けています。これはキラー差別化、あるいはこれが欲しかったという決め手につながると考えています。」
-- 「Aで進めたいのですが、じつは今後Turbovecを連携させたmcpを用意し、高速に正本検索ができるようになるのではないか（中略）それがキラーコンテンツになり得ると考えています。」
-- 「Aとします。なおこの議論によって決めたことはmanage-project-knowledgeスキルを利用してドキュメント化してください。」
+- "I want to convey the philosophy that decided facts should live in one place."
+- "In Dialogue we make a promise to detect staleness and duplication of information and have agents clean it up. I think this leads to the killer differentiation, or the deciding factor of 'this is what I wanted.'"
+- "I'd like to proceed with A. In fact, going forward I think we could prepare an MCP integrated with Turbovec so that fast canonical search becomes possible (omitted), and I believe that could become killer content."
+- "Let's go with A. And please document what we decided in this discussion using the manage-project-knowledge skill."

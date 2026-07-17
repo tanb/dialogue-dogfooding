@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0013
 type: proposal
-title: 設定ファイルを.dialogue.ymlへ、Core Skillをdialogue-knowledgeへ改名する
+title: Rename the config file to .dialogue.yml and the Core Skill to dialogue-knowledge
 status: approved
 scope:
   project: dialogue
@@ -29,9 +29,9 @@ extensions:
       subject_revision: 2
       decided_at: "2026-07-18T00:47:00+09:00"
       conditions:
-        - ドメイン語彙knowledgeは記述として保持し入口のみ改名する
-        - 歴史的Proposal/Change Recordの旧名は記録として保持する
-        - 素のdialogueはSkillファミリ名として温存しCore Skillはdialogue-knowledgeとする
+        - Keep the domain vocabulary "knowledge" as descriptive and rename only the entry points
+        - Preserve the old names in historical Proposals/Change Records as a record
+        - Reserve bare "dialogue" as the Skill family name and make the Core Skill dialogue-knowledge
 change_class: C4
 proposed_by: agent:claude
 targets:
@@ -46,36 +46,37 @@ requested_changes:
     before: manage-project-knowledge
     after: dialogue-knowledge
 reason: >-
-  製品名Dialogueに入口（設定ファイルとCore Skill）を揃え、利用者の記憶性と指示のしやすさを高める。
-  ランタイムファイルは既に.dialogue.lock / .dialogue-transaction.jsonと一貫しており、設定ファイルだけが
-  .knowledge.ymlで浮いていた不整合も解消する。
+  Align the entry points (the config file and the Core Skill) with the product name Dialogue to improve
+  memorability and ease of instruction for users. The runtime files are already consistent as
+  .dialogue.lock / .dialogue-transaction.json, so this also resolves the inconsistency of the config file
+  being the odd one out as .knowledge.yml.
 evidence_refs:
   - conversation:rename-dialogue-yml-2026-07-18
   - STATE-PRODUCT-SCOPE-001
 impact: >-
-  v1配布物の設定ファイル名とCore Skill名が変わる（破壊的変更）。外部利用者はまだ存在せず自己
-  ドッグフーディングのみのため両対応は設けずハードリネームする。ドメイン語彙knowledgeと
-  スキーマファイルknowledge.schema.jsonは据え置く。
+  The config file name and Core Skill name of the v1 deliverable change (a breaking change). Since no
+  external users yet exist and this is self-dogfooding only, we do a hard rename without dual support.
+  The domain vocabulary "knowledge" and the schema file knowledge.schema.json remain unchanged.
 ---
 
-# 設定ファイルとCore Skillを製品名に揃える
+# Align the config file and Core Skill with the product name
 
 ## Decision
 
-ユーザーは次を確定した。
+The user finalized the following.
 
-- 設定ファイル `.knowledge.yml` を `.dialogue.yml` に改名する。
-- Core Skill `manage-project-knowledge` を `dialogue-knowledge` に改名する。
-- 素の `dialogue` はSkillファミリ名として温存し、将来 `dialogue-git` / `dialogue-conformance` 等を並べる。charterが計画するCore Skillとbackend固有Skillの複数化に備える。
+- Rename the config file `.knowledge.yml` to `.dialogue.yml`.
+- Rename the Core Skill `manage-project-knowledge` to `dialogue-knowledge`.
+- Reserve bare `dialogue` as the Skill family name, and in the future line up `dialogue-git` / `dialogue-conformance` and so on. This prepares for the charter's planned proliferation of a Core Skill plus backend-specific Skills.
 
 ## Naming principle
 
-入口（設定ファイル・Skill名）は製品ブランドに寄せ、ドメイン語彙（Knowledge Repository、knowledge root、knowledge-governance）と `knowledge.schema.json` は記述的なまま保持する。
+Align the entry points (config file and Skill name) with the product brand, while keeping the domain vocabulary (Knowledge Repository, knowledge root, knowledge-governance) and `knowledge.schema.json` descriptive.
 
 ## Approval evidence
 
-会話中のユーザー確定発言（抜粋）:
+User's finalizing statements during the conversation (excerpts):
 
-- 「.knowledge.ymlを.dialogue.ymlにしたいです。dialogueというプロダクト名に揃えた方がユーザーが使いやすくなります。スキル名も合わせて変更し、さらに短い方が使用しやすいと感じます。」
-- 「そもそもこれ自体がdialogueという名前のスキルと考えて良いのであれば、dialogueがよさそうです。dialogueのなかに複数のスキルがある場合は、名前をわけなければなりません。」
-- 「それでお願いします。」（Core Skill を `dialogue-knowledge`、`dialogue` はファミリ名温存の方針に対して）
+- "I want to make .knowledge.yml into .dialogue.yml. Aligning it with the product name dialogue makes it easier for users to use. Let's change the skill name to match as well, and I feel a shorter name is easier to use."
+- "If we can consider this itself to be a skill named dialogue, then dialogue seems good. If there are multiple skills within dialogue, we have to separate the names."
+- "Please go with that." (In response to the policy of making the Core Skill `dialogue-knowledge` and reserving `dialogue` as the family name.)

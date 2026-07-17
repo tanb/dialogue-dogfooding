@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0012
 type: change_record
-title: Product Direction v1を正本として新規作成する
+title: Newly create Product Direction v1 as a canonical record
 status: applied
 scope:
   project: dialogue
@@ -19,7 +19,7 @@ related:
 extensions:
   approval_source: direct_user_instruction
   session: office-hours-2026-07-17
-change_set_id: CHANGESET-0012
+  change_set_id: CHANGESET-0012
 proposal_ref: PROPOSAL-0012
 change_class: C3
 decision: approved
@@ -30,11 +30,11 @@ approvals:
     subject_revision: 0
     decided_at: "2026-07-17T23:59:31+09:00"
     conditions:
-      - Turbovec検索層は正本ではなく派生readアクセラレータとして扱う
-      - 本方向性はSTATE-PRODUCT-SCOPE-001のスコープ契約を変更しない
+      - Treat the Turbovec search layer not as a canonical record but as a derived read accelerator
+      - This direction does not change the scope contract of STATE-PRODUCT-SCOPE-001
     evidence: >-
-      Aとします。なおこの議論によって決めたことはmanage-project-knowledgeスキルを
-      利用してドキュメント化してください。
+      Let's go with A. And please document what we decided in this discussion
+      using the manage-project-knowledge skill.
 targets:
   - id: STATE-PRODUCT-DIRECTION-001
     action: create
@@ -43,26 +43,27 @@ targets:
     result: applied
     error: null
 reason: >-
-  office-hoursで確定した製品方向性（Thesis、Two pillars、Positioning、次の一歩、North Star）を
-  独立した正本Stateとして記録し、以後の判断根拠を単一の場所に置く。
+  Record the product direction finalized in office-hours (Thesis, Two pillars, Positioning,
+  next step, North Star) as an independent canonical State, so that the basis for subsequent
+  judgments lives in a single place.
 applied_at: "2026-07-17T23:59:31+09:00"
 applied_by: agent:claude
 ---
 
-# Product Direction v1を正本として新規作成する
+# Newly create Product Direction v1 as a canonical record
 
 ## Applied changes
 
-- `STATE-PRODUCT-DIRECTION-001`（`docs/product-direction-v1.md`）を新規作成し、`canonical_for: dialogue/product/direction-v1`の正本とした。
-- Thesis「決定の単一正本」、Two pillars（Governance + Anti-rot）、対Agent memory/対wikiのPositioning、次の一歩（Approach A: 衝突&腐敗デモ）、North Star（Turbovec MCP）を記録した。
+- Newly created `STATE-PRODUCT-DIRECTION-001` (`docs/product-direction-v1.md`) and made it the canonical record with `canonical_for: dialogue/product/direction-v1`.
+- Recorded the Thesis "single source of truth for decisions", the Two pillars (Governance + Anti-rot), the Positioning against Agent memory and against wikis, the next step (Approach A: a conflict & rot demo), and the North Star (Turbovec MCP).
 
 ## Rationale
 
-`.knowledge.yml`によるGit Knowledge discoveryとHuman EscalationはProduct v1の主導線である。office-hoursで確定した方向性は、スコープ契約（`STATE-PRODUCT-SCOPE-001`）より上位の判断根拠であり、コードやGit履歴ではなく独立した正本Stateに置くべきである。これはDialogue自身のThesisのDogfoodingでもある。
+Git Knowledge discovery via `.knowledge.yml` and Human Escalation are the primary path of Product v1. The direction finalized in office-hours is a higher-level basis for judgment than the scope contract (`STATE-PRODUCT-SCOPE-001`), and it should live in an independent canonical State rather than in code or Git history. This is itself dogfooding of Dialogue's own Thesis.
 
 ## Impact
 
-- Product v1のスコープ契約・受入基準は不変。
-- Anti-rotの「Agentによる継続整理」を製品約束として初めて正本化した。
-- Turbovec MCPはv1スコープ外の派生層North Starとして記録し、scope docのVector Database除外と矛盾しない。
-- `STATE-PRODUCT-SCOPE-001`は本変更で更新していない（related参照のみ）。
+- The scope contract and acceptance criteria of Product v1 are unchanged.
+- For the first time, Anti-rot's "continuous organization by Agents" is canonicalized as a product promise.
+- The Turbovec MCP is recorded as a North Star for the derived layer outside the v1 scope, and it does not contradict the scope doc's exclusion of a Vector Database.
+- `STATE-PRODUCT-SCOPE-001` was not updated by this change (referenced via `related` only).

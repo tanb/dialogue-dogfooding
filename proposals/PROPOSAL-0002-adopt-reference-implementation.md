@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0002
 type: proposal
-title: Filesystem Reference AdapterとCore Skillを採用する
+title: Adopt the Filesystem Reference Adapter and the Core Skill
 status: approved
 scope:
   project: dialogue
@@ -49,15 +49,15 @@ requested_changes:
         canonical_for: dialogue/product/filesystem-reference-implementation
         owners:
           - person:project-owner
-      body: Filesystem Adapter、CLI、Core Skill、統合テストをv0.1の参照実装として提供する
-reason: Protocolの実行可能性をFilesystem上の垂直スライスで実証する
+      body: Provide the Filesystem Adapter, CLI, Core Skill, and integration tests as the v0.1 reference implementation
+reason: Demonstrate the executability of the Protocol through a vertical slice on the filesystem
 evidence_refs:
   - tests/filesystem_adapter_test.rb
   - tests/filesystem_cli_test.rb
   - skills/manage-project-knowledge/SKILL.md
-impact: 人間とAgentが共有知識を安全にResolve、提案、承認、適用できる最小プロダクトが利用可能になる
+impact: A minimum product becomes available in which humans and Agents can safely resolve, propose, approve, and apply shared knowledge
 ---
 
-# Filesystem Reference AdapterとCore Skillを採用する
+# Adopt the Filesystem Reference Adapter and the Core Skill
 
-ユーザーの直接指示を、revision 1に対するHuman Approvalとして記録した。Approval記録の追加でrevision 2、適用後のChange Record参照追加でrevision 3となった。
+The user's direct instruction was recorded as Human Approval for revision 1. Adding the approval record produced revision 2, and adding the Change Record reference after application produced revision 3.

@@ -35,7 +35,7 @@ extensions:
 
 ## Product outcome
 
-プロジェクトリポジトリから独立した共有Knowledge Repositoryを、Agentが一貫した方法で発見、参照、編集できるようにする。
+Enable an Agent to discover, reference, and edit, in a consistent way, a shared Knowledge Repository that is independent of the project repository.
 
 ```text
 Project Repository
@@ -49,13 +49,13 @@ Knowledge Git Repository
 ## Consumer-facing deliverables
 
 - `.dialogue.yml` v1 Schema
-- Git sourceを記述した導入用`.dialogue.yml` template
-- `.dialogue.yml`を読み、Knowledge sourceを解決するAgent Skill
-- Knowledge GovernanceとKnowledge Management Protocol
+- An adoption `.dialogue.yml` template describing a Git source
+- An Agent Skill that reads `.dialogue.yml` and resolves the Knowledge source
+- The Knowledge Governance and Knowledge Management Protocol
 
-配布境界は`.claude-plugin/`（plugin manifest）が宣言する。配布物は`skills/`（Agent Skill）、`protocol/`（仕様）、`schemas/`（JSON Schema）、`templates/`（導入テンプレート）に置く。Dialogue自身の設計知識・Proposal・Change Record（`dogfooding/`）、テスト（`tests/`）、検証スクリプト（`scripts/`）は内部資産としてこれと分離する。
+The distribution boundary is declared by `.claude-plugin/` (the plugin manifest). The deliverables are placed under `skills/` (the Agent Skill), `protocol/` (the specification), `schemas/` (the JSON Schema), and `templates/` (the adoption template). Dialogue's own design knowledge, Proposals, and Change Records (`dogfooding/`), the tests (`tests/`), and the validation scripts (`scripts/`) are separated from these as internal assets.
 
-Dialogueは`.claude-plugin/`によりClaude Codeプラグインとして、また`skills.sh`（`npx skills add`）によりコピー導入として配布できる。
+Dialogue can be distributed as a Claude Code plugin via `.claude-plugin/`, and as a copy-based install via `skills.sh` (`npx skills add`).
 
 ## `.dialogue.yml` v1 contract
 
@@ -68,49 +68,49 @@ source:
   path: .
 ```
 
-- `type`はv1では`git`のみ。
-- `url`はKnowledge Git Repositoryのremote。認証情報を含めない。
-- `ref`は共有branch、tag、commitで、既定値は`main`。
-- `path`はcheckout内のdocument rootで、既定値は`.`。
-- 未知フィールド、絶対path、`..`を含むpathは拒否する。
+- `type` is only `git` in v1.
+- `url` is the remote of the Knowledge Git Repository. Do not include credentials.
+- `ref` is a shared branch, tag, or commit, with a default of `main`.
+- `path` is the document root within the checkout, with a default of `.`.
+- Reject unknown fields, absolute paths, and paths containing `..`.
 
 ## Required user flow
 
-1. Agentがプロジェクトルートの`.dialogue.yml`を発見する。
-2. Skillが設定を検証し、Git URL、ref、document rootを解決する。
-3. Agentが専用checkoutを取得または同期する。
-4. Repository固有の案内と現在状態を探索する。
-5. 質問にはActiveな正本を根拠として回答する。
-6. 編集依頼では現在状態と独立したChange Recordを更新する。
-7. 同期競合または意味上の曖昧さでは推測せず人間へEscalationする。
+1. The Agent discovers the `.dialogue.yml` at the project root.
+2. The Skill validates the configuration and resolves the Git URL, ref, and document root.
+3. The Agent fetches or synchronizes a dedicated checkout.
+4. It explores the Repository-specific guidance and the current state.
+5. It answers questions using the Active source of truth as the basis.
+6. For an edit request, it updates the current state and an independent Change Record.
+7. On a sync conflict or semantic ambiguity, it does not guess and escalates to a human.
 
 ## Initial scope
 
 - Git Knowledge Repository discovery
-- Git checkoutの取得と同期
-- Markdown knowledgeの探索と参照
-- 状態文書、Proposal、Change Recordの作成・編集
-- Active、Superseded、Archivedの基本的な探索区別
-- 重複・競合時のHuman Escalation
+- Fetch and synchronization of a Git checkout
+- Exploration and reference of Markdown knowledge
+- Creation and editing of state documents, Proposals, and Change Records
+- Basic exploration distinction of Active, Superseded, and Archived
+- Human Escalation on duplication or conflict
 
 ## Outside initial scope
 
-- Actor runtime identityの証明
-- Trusted Approvalの必須化
-- Approval Envelopeの暗号署名
-- Notion、Obsidian、Google DriveなどGit以外のBackend
-- RAGまたはVector Database
-- 独自Document SaaS
-- Filesystem Adapterまたは独立した操作CLI
+- Proof of Actor runtime identity
+- Making Trusted Approval mandatory
+- Cryptographic signing of the Approval Envelope
+- Backends other than Git, such as Notion, Obsidian, and Google Drive
+- RAG or Vector Database
+- A proprietary Document SaaS
+- A Filesystem Adapter or a standalone operation CLI
 
-Trusted Approvalの成果は削除せず、明示的に採用するKnowledge Repository向けの任意profileとして維持する。
-初期検証で作成したFilesystem AdapterとCLIは`development/experiments/`に保存し、v1では機能開発しない。
+The results of Trusted Approval are not deleted, and are maintained as an optional profile for a Knowledge Repository that explicitly adopts it.
+The Filesystem Adapter and CLI created during initial validation are stored in `development/experiments/`, and are not developed further in v1.
 
 ## Acceptance criteria
 
-1. 有効な`.dialogue.yml`からGit sourceを決定的に解決できる。
-2. 不正または未知の設定を共有Repositoryへの接続前に拒否できる。
-3. Skillがcode repository内の文書を暗黙の正本として扱わない。
-4. Git Knowledge Repositoryから現在の知識を検索して回答できる。
-5. 編集時に意味上のChange Recordを残せる。
-6. 配布物（`skills/` `protocol/` `schemas/` `templates/`）と内部資産（`dogfooding/` `scripts/` `tests/`）がディレクトリ境界で分離され、配布境界を`.claude-plugin/`が宣言する。
+1. A Git source can be deterministically resolved from a valid `.dialogue.yml`.
+2. An invalid or unknown configuration can be rejected before connecting to the shared Repository.
+3. The Skill does not treat a document inside the code repository as an implicit source of truth.
+4. Current knowledge can be searched from the Git Knowledge Repository and answered.
+5. A semantic Change Record can be left when editing.
+6. The deliverables (`skills/` `protocol/` `schemas/` `templates/`) and the internal assets (`dogfooding/` `scripts/` `tests/`) are separated by directory boundaries, and the distribution boundary is declared by `.claude-plugin/`.

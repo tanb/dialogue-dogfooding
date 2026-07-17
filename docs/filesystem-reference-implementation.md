@@ -41,16 +41,16 @@ extensions:
 
 ## Current disposition
 
-この実験実装は2026-07-17にリポジトリから削除された（`CHANGE-0010`）。コード、CLI、API/CLIテストはリポジトリに残っていない。本StateはArchivedであり、通常のResolveでは選択されず、明示的な履歴調査のためにのみ参照する。
+This experimental implementation was removed from the repository on 2026-07-17 (`CHANGE-0010`). The code, CLI, and API/CLI tests no longer remain in the repository. This State is Archived; it is not selected by an ordinary Resolve and is referenced only for explicit history investigation.
 
-削除前の構成（歴史的記録）:
+Structure before removal (historical record):
 
-- CLI: `development/experiments/filesystem-adapter/bin/dialogue`（削除済み）
-- Adapter: `development/experiments/filesystem-adapter/adapters/filesystem/lib/dialogue/`（削除済み）
-- API tests: `development/tests/filesystem_adapter_test.rb`（削除済み）
-- CLI tests: `development/tests/filesystem_cli_test.rb`（削除済み）
+- CLI: `development/experiments/filesystem-adapter/bin/dialogue` (removed)
+- Adapter: `development/experiments/filesystem-adapter/adapters/filesystem/lib/dialogue/` (removed)
+- API tests: `development/tests/filesystem_adapter_test.rb` (removed)
+- CLI tests: `development/tests/filesystem_cli_test.rb` (removed)
 
-この実装はProduct v1の配布対象ではなかった。Product v1の主導線は、`product/skills/manage-project-knowledge/`が`.knowledge.yml`からGit Knowledge Repositoryを発見し、標準のGit操作とファイル操作で参照・編集するフローである。以下の設計知見は、将来Adapter相当の決定的操作APIを再検討する際の起点として保持する。
+This implementation was not a distribution target for Product v1. The primary flow for Product v1 is one in which `product/skills/manage-project-knowledge/` discovers the Git Knowledge Repository from `.knowledge.yml` and references and edits it using standard Git and file operations. The following design findings are retained as a starting point for a future re-examination of an Adapter-equivalent deterministic operation API.
 
 ## Supported workflow
 
@@ -58,7 +58,7 @@ extensions:
 .knowledge.yml → Git checkout → Resolve → Edit → Change Record → Validate
 ```
 
-Trusted Approvalを採用したRepositoryでは、Proposal → Human Approval → Applyを追加する。
+For a Repository that has adopted Trusted Approval, add Proposal → Human Approval → Apply.
 
 CLI commands:
 
@@ -71,41 +71,41 @@ dialogue apply
 dialogue validate
 ```
 
-Archive、Restore、Supersede、Deactivateは、Proposalのtarget actionとstatus変更を通じてApplyする。
+Archive, Restore, Supersede, and Deactivate are Applied through the target action and status change of a Proposal.
 
 ## Core guarantees
 
-- Activeな`canonical_for`の一意性を検証する。
-- `expected_revision`によってLost Updateを拒否する。
-- 複数文書の書込み前に回復用transaction markerを作る。
-- 検証失敗時にState、Proposal、Change Recordをまとめてロールバックする。
-- 文書内命令をAgent権限として扱わない。
+- Verifies the uniqueness of the Active `canonical_for`.
+- Rejects a Lost Update via `expected_revision`.
+- Creates a recovery transaction marker before writing multiple documents.
+- Rolls back the State, Proposal, and Change Record together on a verification failure.
+- Does not treat an in-document instruction as Agent authority.
 
 ## Optional Trusted Approval profile
 
-採用したRepositoryに限り、次を保証する。
+Only for a Repository that has adopted it, the following are guaranteed.
 
-- Human ApprovalとAgent DelegationをAuthority Registryで分離する。
-- Human ApprovalをOS Identity、Proposal ID、revision、SHA-256 Digestへ束縛する。
-- Approvalの期限切れ、権限失効、別Proposalへの転用、再利用を拒否する。
+- Separates Human Approval and Agent Delegation in the Authority Registry.
+- Binds Human Approval to the OS Identity, Proposal ID, revision, and SHA-256 Digest.
+- Rejects an expired Approval, revoked authority, diversion to a different Proposal, and reuse.
 
 ## Current limits
 
-- 既存文書はtop-level front matterのみ変更できる。
-- 新規文書はmetadataと本文をまとめて作成できる。
-- Human ApprovalのIdentity保証はOS実効UIDの`local_account`水準であり、同一UIDのプロセスを区別しない。
-- Agent Applyの`--actor`はDelegation識別子であり、ランタイム本人性を証明しない。
-- Process crash後の回復は、同じ共有Filesystemで次回CLI操作が行われたときに実行する。
-- 複数ホスト間の分散Lockは提供しない。
+- Existing documents can change only the top-level front matter.
+- New documents can be created with metadata and body together.
+- The Identity guarantee of Human Approval is at the `local_account` level of the OS effective UID, and does not distinguish processes with the same UID.
+- The `--actor` of an Agent Apply is a Delegation identifier and does not prove runtime identity.
+- Recovery after a process crash is performed when the next CLI operation is executed on the same shared Filesystem.
+- It does not provide a distributed Lock across multiple hosts.
 
-Trusted Approval profileを実装するProduction Adapterは、Backendの認証済みユーザーIDをActor referenceへ写像し、Approval EnvelopeへIdentity Evidenceを保存しなければならない。
+A Production Adapter that implements the Trusted Approval profile must map the Backend's authenticated user ID to an Actor reference and store the Identity Evidence in the Approval Envelope.
 
 ## Resume criteria
 
-- 複数文書更新の原子性または回復処理が実利用で必要になる。
-- Git以外のBackendへ共通操作を移植する。
-- 複数のAgent runtimeから同じ決定的操作APIを利用する。
+- Atomicity or recovery processing of multi-document updates becomes necessary in real use.
+- The common operations are ported to a Backend other than Git.
+- The same deterministic operation API is used from multiple Agent runtimes.
 
 ## Validation
 
-実装とテストは削除済みのため、本Stateに対応する実行検証はない。リポジトリ全体の検証手順は`README.md`の Development validation を参照する。
+Because the implementation and tests have been removed, there is no execution verification corresponding to this State. For the verification procedure of the entire repository, see Development validation in `README.md`.

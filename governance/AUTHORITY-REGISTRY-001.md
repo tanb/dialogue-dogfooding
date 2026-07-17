@@ -84,16 +84,16 @@ authorities:
     delegated_by: AUTH-HUMAN-001
     status: active
     conditions:
-      - C3の適用にはperson:project-ownerによる対象revisionへのApprovalが必要
-      - "agent:* は委任された任意のAIエージェント（codex, claude 等）を表す。個々のactorはChange Recordのcreated_by/applied_byで監査する"
+      - Applying C3 requires an Approval by person:project-owner for the target revision
+      - "agent:* represents any delegated AI agent (codex, claude, etc.). Individual actors are audited via the created_by/applied_by of the Change Record"
 ---
 
 # Dialogue Authority Registry
 
-本RegistryはDialogueプロジェクトのHuman AuthorityとAgent Delegationの正本である。
+This Registry is the canonical record of the Human Authority and Agent Delegation for the Dialogue project.
 
-`person:project-owner`はプロジェクト所有者を表す論理Actorである。ローカルOSアカウントの実効UIDを認証主体として写像し、CLI引数だけを本人認証として扱わない。
+`person:project-owner` is a logical Actor representing the project owner. It maps the effective UID of the local OS account as the authenticating subject, and does not treat CLI arguments alone as authentication of the person.
 
-`local_account`は同じOSアカウントで動くプロセスを区別しない。より強い保証が必要な運用では、Backendセッション、署名、または短命Capabilityへ置換する。
+`local_account` does not distinguish between processes running under the same OS account. For operations that require stronger assurance, replace it with a backend session, a signature, or a short-lived capability.
 
-`agent:*`は委任された任意のAIエージェント（codex、claude 等）を表す単一の委任権限である。エージェント実装ごとに権限を分けず、個々の行為はChange Recordの`created_by`/`applied_by`で監査する。C4および`change_governance`は`person:project-owner`専用で、エージェントへ委任しない。
+`agent:*` is a single delegated authority representing any delegated AI agent (codex, claude, etc.). Authority is not split per agent implementation; individual actions are audited via the `created_by` / `applied_by` of the Change Record. C4 and `change_governance` are reserved for `person:project-owner` and are not delegated to agents.

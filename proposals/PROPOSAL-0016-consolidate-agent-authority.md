@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0016
 type: proposal
-title: agent権限をベンダー中立なAUTH-AGENT-001へ統合しfilesystem文言を刷新する
+title: Consolidate agent authority into the vendor-neutral AUTH-AGENT-001 and refresh the filesystem wording
 status: approved
 scope:
   project: dialogue
@@ -28,8 +28,8 @@ extensions:
       subject_revision: 2
       decided_at: "2026-07-18T03:00:00+09:00"
       conditions:
-        - C4とchange_governanceはperson:project-owner専用のまま維持する
-        - identity binding IDENTITY-FILESYSTEM-OWNER-001 は有効なlocal_account束縛として保持する
+        - Keep C4 and change_governance reserved to person:project-owner
+        - Keep identity binding IDENTITY-FILESYSTEM-OWNER-001 as a valid local_account binding
 change_class: C4
 proposed_by: agent:claude
 targets:
@@ -46,35 +46,37 @@ requested_changes:
       actor_ref: "agent:*"
       change_classes: [C0, C1, C2, C3]
   - field: identity-prose
-    before: Filesystem AdapterではOSの実効UIDを認証主体として写像する
-    after: ローカルOSアカウントの実効UIDを認証主体として写像する
+    before: The Filesystem Adapter maps the OS effective UID as the authentication subject
+    after: Map the effective UID of the local OS account as the authentication subject
 reason: >-
-  agent:codex と agent:claude は同一の権限（operations・C0–C3）で運用されており、ベンダー別に
-  分ける実益が乏しい。単一のベンダー中立な委任権限 AUTH-AGENT-001（actor_ref: agent:*）へ統合し、
-  将来のエージェント追加で登録を不要にする。あわせて削除済みのFilesystem Adapterを名指す
-  陳腐化した本人認証の記述を一般化する。
+  agent:codex and agent:claude operate with identical authority (operations and C0-C3), so there is little
+  practical benefit to splitting them by vendor. Consolidate them into a single vendor-neutral delegated
+  authority AUTH-AGENT-001 (actor_ref: agent:*), making registration unnecessary when future agents are
+  added. At the same time, generalize the stale identity-authentication wording that names the already-removed
+  Filesystem Adapter.
 evidence_refs:
   - conversation:refresh-authority-registry-2026-07-18
   - AUTHORITY-REGISTRY-001
 impact: >-
-  委任エージェントの権限はactor_ref: agent:* の単一authorityで表現される。監査は各Change Recordの
-  created_by/applied_byで担保する。C4・change_governanceは人間専用のまま不変。identity bindingは保持。
+  Delegated-agent authority is expressed by the single authority actor_ref: agent:*. Auditing is ensured by
+  the created_by/applied_by of each Change Record. C4 and change_governance remain human-only and unchanged.
+  The identity binding is preserved.
 ---
 
-# agent権限をベンダー中立なAUTH-AGENT-001へ統合する
+# Consolidate agent authority into the vendor-neutral AUTH-AGENT-001
 
 ## Decision
 
-`AUTHORITY-REGISTRY-001` が陳腐化していた。`agent:claude` は本セッションで多数の Proposal / Change Record（C3・C4）を作成・適用してきたが、Registry には `AUTH-AGENT-CODEX-001`（agent:codex）しか登録されていなかった。
+`AUTHORITY-REGISTRY-001` had gone stale. `agent:claude` created and applied numerous Proposals / Change Records (C3 and C4) in this session, but the Registry only had `AUTH-AGENT-CODEX-001` (agent:codex) registered.
 
-ユーザー（person:project-owner）の判断により、ベンダー別に分けず、単一のベンダー中立な委任権限へ統合する。
+By the judgment of the user (person:project-owner), rather than splitting by vendor, consolidate into a single vendor-neutral delegated authority.
 
-- `AUTH-AGENT-CODEX-001`（agent:codex）→ `AUTH-AGENT-001`（`actor_ref: agent:*`, role:agent, operations 同一, change_classes C0–C3, delegated_by AUTH-HUMAN-001, C3 は owner Approval 必須）
-- 削除済み Filesystem Adapter を名指す本人認証の記述を「ローカルOSアカウントの実効UID」に一般化
-- C4 と `change_governance` は `person:project-owner` 専用のまま
+- `AUTH-AGENT-CODEX-001` (agent:codex) → `AUTH-AGENT-001` (`actor_ref: agent:*`, role:agent, identical operations, change_classes C0-C3, delegated_by AUTH-HUMAN-001, C3 requires owner Approval)
+- Generalize the identity-authentication wording that names the already-removed Filesystem Adapter to "the effective UID of the local OS account"
+- C4 and `change_governance` remain reserved to `person:project-owner`
 
 ## Approval evidence
 
-- 「AUTHORITY-REGISTRY-001.mdが陳腐化しています。dialogue-knowledgeスキルを使用して修正してください。」
-- 「CLAUDEとCODEXで分ける必要があるのか疑問です。」
-- 「統合する（AUTH-AGENT-001, agent:*）」「一緒に修正」（D1再/D2 の確定）
+- "AUTHORITY-REGISTRY-001.md has gone stale. Please fix it using the dialogue-knowledge skill."
+- "I question whether we need to split CLAUDE and CODEX."
+- "Consolidate (AUTH-AGENT-001, agent:*)" "Fix together" (finalizing D1-redo / D2).

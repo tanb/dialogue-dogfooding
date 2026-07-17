@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0005
 type: proposal
-title: Product v1をKnowledge Repository discoveryへ集中する
+title: Focus Product v1 on Knowledge Repository discovery
 status: approved
 scope:
   project: dialogue
@@ -59,26 +59,26 @@ targets:
     expected_revision: 1
 requested_changes:
   - field: product-layout
-    before: ProductとDevelopment assetsがトップレベルで混在する
-    after: 配布物をproduct/、開発資産をdevelopment/へ分離する
+    before: Product and Development assets are mixed at the top level
+    after: Separate deliverables into product/ and development assets into development/
   - field: product-discovery
-    before: Knowledge Repositoryの場所を暗黙に仮定する
-    after: プロジェクトルートの.knowledge.ymlからGit sourceを解決する
+    before: Implicitly assume the location of the Knowledge Repository
+    after: Resolve the Git source from the .knowledge.yml at the project root
   - field: trusted-approval-profile
-    before: Core Approvalの事実上の必須要件
-    after: Knowledge Repositoryが明示的に採用する任意profile
-reason: 最初に検証すべき利用者価値を、共有Knowledge Repositoryの発見・参照・編集へ戻す
+    before: A de facto mandatory requirement of Core Approval
+    after: An optional profile that a Knowledge Repository explicitly adopts
+reason: Return the first user value to be validated to discovering, referencing, and editing a shared Knowledge Repository
 evidence_refs:
   - product/README.md
   - product/config/knowledge.schema.json
   - product/templates/.knowledge.yml
   - product/skills/manage-project-knowledge/SKILL.md
   - development/tests/knowledge_source_test.rb
-impact: Product境界とMVP導線が明確になり、Actor検証は本筋を妨げない任意拡張になる
+impact: The product boundary and the MVP path become clear, and actor verification becomes an optional extension that does not obstruct the main line
 ---
 
-# Product v1をKnowledge Repository discoveryへ集中する
+# Focus Product v1 on Knowledge Repository discovery
 
 ## Decision
 
-ユーザーは、成果物と開発資産の分離、`.knowledge.yml`によるGit Knowledge Repository指定、Actor検証の優先度低下を明示した。この判断をProduct v1のスコープとして採用する。
+The user explicitly stated the separation of deliverables and development assets, the designation of a Git Knowledge Repository via `.knowledge.yml`, and the lowered priority of actor verification. This judgment is adopted as the scope of Product v1.

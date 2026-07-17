@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0003
 type: change_record
-title: Filesystem transaction securityをGovernanceへ同期する
+title: Sync filesystem transaction security into Governance
 status: applied
 scope:
   project: dialogue
@@ -37,16 +37,16 @@ targets:
     after_revision: 1
     result: applied
     error: null
-reason: 既存Governanceと実装の差を解消し、回復用バックアップの機密性を保証する
+reason: Resolve the gap between the existing Governance and the implementation, and guarantee the confidentiality of recovery backups
 applied_at: "2026-07-16T03:27:16+09:00"
 applied_by: agent:codex
 ---
 
-# Filesystem transaction securityをGovernanceへ同期する
+# Sync filesystem transaction security into Governance
 
 ## Result
 
-- Transaction markerを`0600`へ制限した。
-- C3/C4だけにHuman Approvalを要求するようChange Record Schemaを修正した。
-- Delegationに基づくC2 ApplyをAdapterへ実装した。
-- C2 Conformance CaseとAdapter security testsを追加した。
+- Restricted the transaction marker to `0600`.
+- Amended the Change Record Schema to require Human Approval only for C3/C4.
+- Implemented delegation-based C2 Apply in the Adapter.
+- Added a C2 Conformance Case and Adapter security tests.

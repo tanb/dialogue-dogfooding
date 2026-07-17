@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0004
 type: change_record
-title: Trusted Approval v0.2を採用する
+title: Adopt Trusted Approval v0.2
 status: applied
 scope:
   project: dialogue
@@ -79,21 +79,21 @@ targets:
     after_revision: 2
     result: applied
     error: null
-reason: Human Approvalのなりすまし、承認後改変、別Proposalへの転用、期限切れまたは失効済み承認の利用を防ぐ
+reason: Prevent impersonation of Human Approval, post-approval tampering, reuse for a different Proposal, and the use of expired or revoked approvals
 applied_at: "2026-07-16T03:38:10+09:00"
 applied_by: agent:codex
 ---
 
-# Trusted Approval v0.2を採用する
+# Adopt Trusted Approval v0.2
 
 ## Applied changes
 
-- OS実効UIDを論理Human Actorへ解決するIdentity Resolverを追加した。
-- Proposalの承認対象をcanonical JSONとSHA-256 Digestへ固定した。
-- Approval EnvelopeへSubject ID、revision、Digest、有効期限、Identity Evidenceを追加した。
-- Apply時に改変、転用、再利用、期限切れ、Identity/Authority失効を検証した。
-- Human Approval CLIから自己申告の`--actor`を削除した。
-- Core Skill、Schema、Authority Registry、参照実装文書をv0.2へ同期した。
+- Added an Identity Resolver that resolves the OS effective UID to a logical Human Actor.
+- Fixed the approval subject of a Proposal to a canonical JSON and a SHA-256 Digest.
+- Added the Subject ID, revision, Digest, expiration, and Identity Evidence to the Approval Envelope.
+- Verified tampering, reuse for another Proposal, replay, expiration, and Identity/Authority revocation at Apply time.
+- Removed the self-declared `--actor` from the Human Approval CLI.
+- Synced the Core Skill, Schema, Authority Registry, and reference implementation documents to v0.2.
 
 ## Verification evidence
 
@@ -106,6 +106,6 @@ TrustedApprovalTest: 7 runs, 31 assertions, 0 failures, 0 errors
 
 ## Residual limits
 
-- `local_account`は同じOS UIDで動く複数プロセスを区別しない。
-- Agent Applyの`--actor`はDelegation識別子であり、Agent runtime identityの証明ではない。
-- Approval Envelopeは参照実装内で署名されない。強い改ざん耐性にはBackend監査または署名が必要である。
+- `local_account` does not distinguish between multiple processes running under the same OS UID.
+- The `--actor` of Agent Apply is a Delegation identifier, not proof of the Agent runtime identity.
+- The Approval Envelope is not signed within the reference implementation. Strong tamper resistance requires a Backend audit or signing.

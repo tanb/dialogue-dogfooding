@@ -1,26 +1,26 @@
 # Dialogue Knowledge Guide
 
-このディレクトリは`.dialogue.yml`が指定するDialogueのKnowledge rootである。
+This directory is the Dialogue Knowledge root specified by `.dialogue.yml`.
 
 ## Document layout
 
-- `docs/`: 現在状態、仕様補助、検証結果
-- `governance/`: Authority Registryと運用上の権限
-- `proposals/`: 未決定または承認対象の意味変更
-- `changes/`: 適用済み変更の意味上の履歴
+- `docs/`: current state, specification support, validation results
+- `governance/`: the Authority Registry and operational authority
+- `proposals/`: undecided or to-be-approved semantic changes
+- `changes/`: the semantic history of applied changes
 
 ## Read protocol
 
-1. 対象scopeのActiveなStateとAuthority Registryを確認する。
-2. Proposalを現在状態として扱わない。
-3. 変更経緯が必要な場合だけ関連Change Recordを読む。
-4. Archivedな知識は明示的な履歴調査以外で使用しない。
-5. 一意な正本を解決できなければ更新せずエスカレーションする。
+1. Confirm the Active State and the Authority Registry for the target scope.
+2. Do not treat a Proposal as the current state.
+3. Read a related Change Record only when the change history is needed.
+4. Do not use Archived knowledge except in an explicit history investigation.
+5. If a unique source of truth cannot be resolved, do not update and escalate.
 
 ## Write protocol
 
-1. 書込み前にremoteの`main`を同期し、対象revisionを再確認する。
-2. 確定した意味変更ではStateと独立したChange Recordを更新する。
-3. C3またはC4はHuman Approvalの対象とrevisionを記録する。
-4. AppliedなChange Recordを後から上書きしない。訂正は新しい変更として記録する。
-5. `cd development && uv run python scripts/validate_repository.py`で検証してからpushする。
+1. Before writing, synchronize the remote `main` and re-confirm the target revision.
+2. For a settled semantic change, update the State and an independent Change Record.
+3. For C3 or C4, record the target and revision of the Human Approval.
+4. Do not later overwrite an Applied Change Record. Record a correction as a new change.
+5. Validate with `cd development && uv run python scripts/validate_repository.py` before pushing.

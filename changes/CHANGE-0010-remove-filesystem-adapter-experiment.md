@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0010
 type: change_record
-title: Filesystem Adapter実験実装とテストをリポジトリから削除する
+title: Remove the Filesystem Adapter experimental implementation and its tests from the repository
 status: applied
 scope:
   project: dialogue
@@ -30,9 +30,9 @@ approvals:
     decided_at: "2026-07-17T22:55:37+09:00"
     conditions: []
     evidence: >-
-      experiments/filesystem-adapterは実験コードだったのでレポジトリに含む予定は
-      現時点ではありませんでした。なので、experiments/filesystem-adapterを削除して
-      よいです。それに付随するテストも不要になります。
+      experiments/filesystem-adapter was experimental code, and there was no plan
+      at this point to include it in the repository. So it is fine to delete
+      experiments/filesystem-adapter. The tests that go with it also become unnecessary.
 targets:
   - id: STATE-REFERENCE-IMPLEMENTATION-001
     action: update
@@ -41,27 +41,28 @@ targets:
     result: applied
     error: null
 reason: >-
-  Reference Adapterは当初からリポジトリへ含める予定のない実験コードであり、
-  Product v1の主導線に不要なため、実装・CLI・依存テストを削除しStateをArchivedにする
+  The Reference Adapter was experimental code that was never intended to be included
+  in the repository from the outset, and it is unnecessary to the primary path of
+  Product v1. Delete the implementation, CLI, and dependent tests, and set the State to Archived.
 applied_at: "2026-07-17T22:55:37+09:00"
 applied_by: agent:claude
 ---
 
-# Filesystem Adapter実験実装とテストをリポジトリから削除する
+# Remove the Filesystem Adapter experimental implementation and its tests from the repository
 
 ## Applied changes
 
-- `development/experiments/filesystem-adapter/`（Adapter、CLI、`lib/dialogue/`、Skill wrapper）を削除した。
-- 依存テスト `filesystem_adapter_test.rb`、`filesystem_cli_test.rb`、`trusted_approval_test.rb`、`support/filesystem_fixture.rb`を削除した。
-- `STATE-REFERENCE-IMPLEMENTATION-001`をInactiveからArchivedへ遷移し、実装が撤去済みであることを記録した。
-- CI、`AGENTS.md`、`README.md`から実験テストの実行手順を除去した。
+- Deleted `development/experiments/filesystem-adapter/` (Adapter, CLI, `lib/dialogue/`, Skill wrapper).
+- Deleted the dependent tests `filesystem_adapter_test.rb`, `filesystem_cli_test.rb`, `trusted_approval_test.rb`, and `support/filesystem_fixture.rb`.
+- Transitioned `STATE-REFERENCE-IMPLEMENTATION-001` from Inactive to Archived, recording that the implementation has been removed.
+- Removed the experimental test execution instructions from CI, `AGENTS.md`, and `README.md`.
 
 ## Rationale
 
-Reference Adapterは当初からリポジトリへ含める予定のない実験コードであった。Product v1の主導線は`.knowledge.yml`によるGit Knowledge Repository discoveryであり、Adapter固有のProtocol Engineは配布対象に含めない。実験が確立した設計知見（正本一意性、Lost Update拒否、multi-document transaction、Trusted Approvalの束縛）は、`STATE-REFERENCE-IMPLEMENTATION-001`にArchived Stateとして保持する。
+The Reference Adapter was experimental code that was never intended to be included in the repository from the outset. The primary path of Product v1 is Git Knowledge Repository discovery via `.knowledge.yml`, and the Adapter-specific Protocol Engine is not part of the distribution. The design knowledge the experiment established (canonical-record uniqueness, Lost Update rejection, multi-document transactions, Trusted Approval bindings) is retained as an Archived State in `STATE-REFERENCE-IMPLEMENTATION-001`.
 
 ## Impact
 
-- Product v1の主導線とConformance検証には影響しない。
-- 検証の主線はProtocol Conformance（Ruby/Python並走ランナー）と`.knowledge.yml`解決・Skill起動・Git E2Eに集約される。
-- 将来Adapter相当の決定的操作APIが実利用で必要になった場合は、Archived Stateの再開条件を起点に新規実装として再検討する。
+- No impact on the primary path of Product v1 or on Conformance verification.
+- The main line of verification is consolidated into Protocol Conformance (the parallel Ruby/Python runners) and `.knowledge.yml` resolution, Skill activation, and Git E2E.
+- If a deterministic-operation API equivalent to the Adapter becomes necessary for real use in the future, it will be reconsidered as a new implementation, starting from the resumption conditions of the Archived State.

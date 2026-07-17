@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0008
 type: proposal
-title: Dialogue開発にSelf-hostingを採用する
+title: Adopt self-hosting for Dialogue development
 status: approved
 scope:
   project: dialogue
@@ -41,23 +41,23 @@ targets:
 requested_changes:
   - field: project-charter.design-principles.self-hosting
     before: null
-    after: Dialogue自身の開発でmanage-project-knowledgeを利用し、実利用結果をProduct改善へ反映する
+    after: Use manage-project-knowledge in Dialogue's own development, and reflect real usage results into Product improvements
   - field: agent-skill.decision-capture
-    before: Skill名の明示または一般的な編集依頼を主な発火条件とする
-    after: 会話で確定した永続的な意思決定を、Skill名の指定なしに暗黙取得する
+    before: Take an explicit Skill name or a general editing request as the primary trigger condition
+    after: Implicitly capture persistent decisions that were settled in conversation, without a Skill name being specified
   - field: agent-policy.bootstrap
-    before: Self-hosting用の暫定運用が未定義
-    after: 実在するGit remoteの設定までdevelopment/knowledgeを暫定保存先とする
-reason: Dialogue自身をDialogueで開発し、Decision Captureの精度、運用負荷、競合処理を実利用から改善する
+    before: Interim operation for self-hosting is undefined
+    after: Use development/knowledge as an interim storage location until a real Git remote is configured
+reason: Develop Dialogue itself with Dialogue, and improve the accuracy of Decision Capture, the operational load, and conflict handling from real usage
 evidence_refs:
   - conversation:current-user-instruction
   - product/skills/manage-project-knowledge/SKILL.md
   - AGENTS.md
-impact: 以後のDialogue開発では、会話で成立した意思決定が自動的なKnowledge記録候補になる
+impact: In subsequent Dialogue development, decisions reached in conversation become automatic candidates for Knowledge records
 ---
 
-# Dialogue開発にSelf-hostingを採用する
+# Adopt self-hosting for Dialogue development
 
 ## Decision
 
-ユーザーの「その方針で進めましょう」を、直前に提示したDialogue Self-hosting方針への明示的なHuman Approvalとして記録する。
+The user's "Let's proceed with that policy" is recorded as explicit Human Approval for the Dialogue self-hosting policy that was presented immediately beforehand.

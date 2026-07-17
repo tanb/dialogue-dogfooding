@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0005
 type: change_record
-title: Product v1をKnowledge Repository discoveryへ集中する
+title: Focus Product v1 on Knowledge Repository discovery
 status: applied
 scope:
   project: dialogue
@@ -45,21 +45,21 @@ targets:
   - {id: GOVERNANCE-001, action: update, before_revision: 3, after_revision: 4, result: applied, error: null}
   - {id: CONFORMANCE-001, action: update, before_revision: 3, after_revision: 4, result: applied, error: null}
   - {id: STATE-TRUSTED-APPROVAL-001, action: update, before_revision: 1, after_revision: 2, result: applied, error: null}
-reason: 最初に検証すべき利用者価値を、共有Knowledge Repositoryの発見・参照・編集へ戻す
+reason: Return the user value to be validated first to the discovery, reference, and editing of a shared Knowledge Repository
 applied_at: "2026-07-16T04:00:43+09:00"
 applied_by: agent:codex
 ---
 
-# Product v1をKnowledge Repository discoveryへ集中する
+# Focus Product v1 on Knowledge Repository discovery
 
 ## Applied changes
 
-- 配布成果物を`product/`へ移動した。
-- 設計知識、Proposal、Change Record、テスト、検証Scriptを`development/`へ移動した。
-- `.knowledge.yml` v1 Schema、template、Resolverを追加した。
-- Agent Skillの入口を`.knowledge.yml`へ変更した。
-- Trusted Approvalを任意profileへ変更した。
-- Project ScopeとReference Implementationを新しい導線へ同期した。
+- Moved the distribution deliverables to `product/`.
+- Moved the design knowledge, Proposals, Change Records, tests, and verification scripts to `development/`.
+- Added the `.knowledge.yml` v1 Schema, template, and Resolver.
+- Changed the entry point of the Agent Skill to `.knowledge.yml`.
+- Changed Trusted Approval to an optional profile.
+- Synced the Project Scope and Reference Implementation to the new flow.
 
 ## Verification
 

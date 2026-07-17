@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0001
 type: proposal
-title: Knowledge Management Protocol v0.1を採用する
+title: Adopt Knowledge Management Protocol v0.1
 status: approved
 scope:
   project: dialogue
@@ -71,19 +71,19 @@ requested_changes:
   - field: AUTHORITY-REGISTRY-001
     before: null
     after: active
-reason: 実装可能なGovernance、Protocol、適合条件をプロジェクトの運用基準として確立する
+reason: Establish an implementable Governance, Protocol, and conformance conditions as the operational baseline for the project
 evidence_refs:
   - PROJECT-CHARTER-001
   - tests/conformance/cases
   - conversation:current-user-instruction
-impact: 承認後、AgentとAdapterはv0.1の権限、文書モデル、状態遷移、安全停止、適合テストに従う
+impact: After approval, Agents and Adapters follow v0.1 authority, the document model, state transitions, safe stops, and the conformance tests
 ---
 
-# Knowledge Management Protocol v0.1を採用する
+# Adopt Knowledge Management Protocol v0.1
 
 ## Decision
 
-Knowledge Governance、Knowledge Management Protocol、Protocol Conformance、Failure Modelのv0.1を、DialogueプロジェクトのActiveな運用基準として採用する。
+Adopt v0.1 of Knowledge Governance, the Knowledge Management Protocol, Protocol Conformance, and the Failure Model as the active operational baseline for the Dialogue project.
 
 ## Included artifacts
 
@@ -98,8 +98,8 @@ Knowledge Governance、Knowledge Management Protocol、Protocol Conformance、Fa
 
 ## Validation evidence
 
-参照オラクルの必須9ケースが通過し、Schema JSON、ローカル参照、文書ID、Markdownリンクを検証済みである。
+The nine mandatory cases of the reference oracle pass, and the Schema JSON, local references, document IDs, and Markdown links have been validated.
 
 ## Approval
 
-`person:project-owner`が会話上の直接指示によりrevision 2を承認した。適用結果と承認証跡は`CHANGE-0001`に記録する。
+`person:project-owner` approved revision 2 through a direct instruction in the conversation. The application result and the approval record are recorded in `CHANGE-0001`.

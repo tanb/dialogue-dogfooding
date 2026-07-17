@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0014
 type: change_record
-title: 自己ホスティングのKnowledge rootをdevelopment/dogfoodingへ改名する
+title: Rename the self-hosting Knowledge root to development/dogfooding
 status: applied
 scope:
   project: dialogue
@@ -17,7 +17,7 @@ related:
   - STATE-SELF-HOSTING-001
 extensions:
   approval_source: direct_user_instruction
-change_set_id: CHANGESET-0014
+  change_set_id: CHANGESET-0014
 proposal_ref: PROPOSAL-0014
 change_class: C4
 decision: approved
@@ -28,11 +28,12 @@ approvals:
     subject_revision: 2
     decided_at: "2026-07-18T01:10:00+09:00"
     conditions:
-      - .dialogue.ymlのsource.pathをdevelopment/dogfoodingに合わせる
-      - 歴史的Proposal/Change Recordの旧path development/knowledgeは記録として保持する
+      - Align source.path in .dialogue.yml with development/dogfooding
+      - Preserve the old path development/knowledge in historical Proposals/Change Records as records
     evidence: >-
-      development/knowledgeディレクトリをdevelopment/dogfoodingにし、.dialogue.ymlで
-      source.pathを development/dogfoodingにしたい #11にそのまま積んで良いです。
+      I want to change the development/knowledge directory to development/dogfooding,
+      and set source.path in .dialogue.yml to development/dogfooding. It is fine to stack
+      this directly onto #11.
 targets:
   - id: STATE-SELF-HOSTING-001
     action: update
@@ -41,37 +42,38 @@ targets:
     result: applied
     error: null
 reason: >-
-  自己ホスティング構成であることを名前で明示するため、Knowledge rootのpathを
-  development/dogfoodingへ改名し、.dialogue.ymlのsource.pathと検証スキャンパスを追随させる。
+  To make the self-hosting configuration explicit in the name, rename the Knowledge root
+  path to development/dogfooding and have .dialogue.yml's source.path and the verification
+  scan path follow suit.
 applied_at: "2026-07-18T01:10:00+09:00"
 applied_by: agent:claude
 ---
 
-# Knowledge rootをdevelopment/dogfoodingへ改名する
+# Rename the Knowledge root to development/dogfooding
 
 ## Applied changes
 
-### リネーム
-- ディレクトリ `development/knowledge/` → `development/dogfooding/`（docs / proposals / changes / governance / AGENTS.md ごと移動）
+### Rename
+- Directory `development/knowledge/` → `development/dogfooding/` (moved together with docs / proposals / changes / governance / AGENTS.md)
 
-### 追随更新（機能・現行）
-- ルート `.dialogue.yml` の `source.path`: `development/knowledge` → `development/dogfooding`
-- `development/scripts/validate_repository.py` の文書スキャンパスを `development/dogfooding` へ
-- `AGENTS.md`（Read first のパスと co-located root 記述）
-- `development/README.md`（レイアウトと self-hosting 記述の相対 `knowledge/` → `dogfooding/`）
-- pytest `test_knowledge_source.py` の `document_root == development/dogfooding` assertion
-- active State `STATE-SELF-HOSTING-001`（rev2→3、Knowledge root path を更新）
+### Follow-on updates (feature / current)
+- `source.path` in root `.dialogue.yml`: `development/knowledge` → `development/dogfooding`
+- Changed the document scan path in `development/scripts/validate_repository.py` to `development/dogfooding`
+- `AGENTS.md` (the Read first path and the co-located root description)
+- `development/README.md` (the layout and self-hosting descriptions, relative `knowledge/` → `dogfooding/`)
+- The `document_root == development/dogfooding` assertion in pytest `test_knowledge_source.py`
+- active State `STATE-SELF-HOSTING-001` (rev2→3, updated the Knowledge root path)
 
-### 据え置き（意図的）
-- ドメイン語彙 knowledge（Knowledge Repository / knowledge root / knowledge-management-protocol / knowledge.schema.json）
-- 歴史的 Proposal / Change Record（CHANGE-0009 / PROPOSAL-0007,0008,0009 / CHANGE-0013）と archived doc の旧path `development/knowledge`（過去の決定記録として保持）
+### Left as is (intentional)
+- The domain vocabulary "knowledge" (Knowledge Repository / knowledge root / knowledge-management-protocol / knowledge.schema.json)
+- Historical Proposals / Change Records (CHANGE-0009 / PROPOSAL-0007,0008,0009 / CHANGE-0013) and the archived doc's old path `development/knowledge` (retained as records of past decisions)
 
 ## Rationale
 
-このディレクトリはDialogue自身の意思決定をDialogueのプロトコルで管理するDogfoodingの実体である。`dogfooding` という名前で自己ホスティング構成を明示し、汎用概念 knowledge と区別する。変わるのはroot位置のみで、プロトコルとドメイン語彙は不変。
+This directory is the concrete instance of dogfooding, where Dialogue's own decision-making is managed with Dialogue's protocol. The name `dogfooding` makes the self-hosting configuration explicit and distinguishes it from the general concept "knowledge." Only the root location changes; the protocol and domain vocabulary are unchanged.
 
 ## Impact
 
-- `.dialogue.yml` は `development/dogfooding` を指し、`validate_repository.py` は同ディレクトリを検証スキャンする。
-- 破壊的だが外部利用者ゼロ（自己ホスティングのみ）のため両対応は不要。
-- 歴史的記録は旧path `development/knowledge` を保持し、現行の正本 `STATE-SELF-HOSTING-001` のみ新pathへ更新した。
+- `.dialogue.yml` points to `development/dogfooding`, and `validate_repository.py` verification-scans that same directory.
+- Breaking, but because there are zero external users (self-hosting only), no dual support is needed.
+- Historical records retain the old path `development/knowledge`, and only the current canonical record `STATE-SELF-HOSTING-001` was updated to the new path.

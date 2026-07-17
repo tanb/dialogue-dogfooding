@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0006
 type: change_record
-title: MVP Git E2E検証結果を記録する
+title: Record the MVP Git E2E validation results
 status: applied
 scope:
   project: dialogue
@@ -37,15 +37,15 @@ targets:
     after_revision: 1
     result: applied
     error: null
-reason: Product Scopeの受入条件を再現可能な実行証拠へ結び付ける
+reason: Tie the acceptance criteria of the Product Scope to reproducible execution evidence
 applied_at: "2026-07-16T04:09:27+09:00"
 applied_by: agent:codex
 ---
 
-# MVP Git E2E検証結果を記録する
+# Record the MVP Git E2E validation results
 
 ## Result
 
-- 正常系のGit discovery、read、edit、Change Record、push、再取得を確認した。
-- 競合系のstale push拒否を確認した。
-- 未検証範囲を実ホスティング認証と独立Agent forward testとして分離した。
+- Confirmed the happy-path Git discovery, read, edit, Change Record, push, and re-fetch.
+- Confirmed the conflict-path stale push rejection.
+- Separated the unverified scope as real hosting authentication and independent Agent forward tests.

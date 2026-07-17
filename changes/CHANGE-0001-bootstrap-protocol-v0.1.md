@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0001
 type: change_record
-title: Protocol v0.1をBootstrapする
+title: Bootstrap Protocol v0.1
 status: applied
 scope:
   project: dialogue
@@ -85,24 +85,24 @@ targets:
     after_revision: 1
     result: applied
     error: null
-reason: ユーザーの直接指示に基づきProtocol v0.1を正式採用し、最初のAuthority Registryを作成する
+reason: Formally adopt Protocol v0.1 based on the user's direct instruction, and create the first Authority Registry
 applied_at: "2026-07-16T03:08:48+09:00"
 applied_by: agent:codex
 ---
 
-# Protocol v0.1をBootstrapする
+# Bootstrap Protocol v0.1
 
 ## Before
 
-Governance、Protocol、Failure Model、Conformanceはdraftであり、Authority Registryと意味上のChange Recordは存在しなかった。
+Governance, Protocol, Failure Model, and Conformance were drafts, and neither the Authority Registry nor a meaningful Change Record existed.
 
 ## After
 
-- 中核文書をProtocol準拠のState Documentへ正規化した。
-- v0.1対象をActive化した。
-- `person:project-owner`をHuman Authorityとして登録した。
-- `agent:codex`へC0〜C3の限定操作を委任した。
+- Normalized the core documents into Protocol-compliant State documents.
+- Activated the v0.1 targets.
+- Registered `person:project-owner` as the Human Authority.
+- Delegated the limited C0–C3 operations to `agent:codex`.
 
 ## Decision authority
 
-`person:project-owner`の直接指示をC4 Approvalとして記録した。Agentは承認を代行していない。
+Recorded the direct instruction of `person:project-owner` as a C4 Approval. The Agent did not approve on their behalf.

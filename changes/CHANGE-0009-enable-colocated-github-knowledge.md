@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0009
 type: change_record
-title: Private GitHubでco-located Knowledge sourceを有効化する
+title: Enable a co-located Knowledge source on private GitHub
 status: applied
 scope:
   project: dialogue
@@ -31,8 +31,8 @@ approvals:
     subject_revision: 1
     decided_at: "2026-07-16T04:39:53+09:00"
     conditions:
-      - GitHub Repositoryをprivateにする
-      - GitHub ownerにtanbを使用する
+      - Make the GitHub Repository private
+      - Use tanb as the GitHub owner
 targets:
   - id: PROPOSAL-0009
     action: update
@@ -46,19 +46,19 @@ targets:
     after_revision: 2
     result: applied
     error: null
-reason: Dialogue自身のGit workflowでKnowledge discoveryと会話Decision Captureを継続的にDogfoodingする
+reason: Continuously dogfood Knowledge discovery and conversational Decision Capture with Dialogue's own Git workflow
 applied_at: "2026-07-16T04:39:53+09:00"
 applied_by: agent:codex
 ---
 
-# Private GitHubでco-located Knowledge sourceを有効化する
+# Enable a co-located Knowledge source on private GitHub
 
 ## Applied changes
 
-- GitHubに`tanb/dialogue`をPrivate Repositoryとして作成した。
-- `.knowledge.yml`へGit remote、`main`、`development/knowledge`を設定した。
-- Knowledge rootへ探索と変更手順を定義した。
-- Self-hosting Stateをbootstrapからactiveへ更新した。
+- Created `tanb/dialogue` on GitHub as a Private Repository.
+- Configured the Git remote, `main`, and `development/knowledge` in `.knowledge.yml`.
+- Defined the discovery and change procedures at the Knowledge root.
+- Updated the Self-hosting State from bootstrap to active.
 
 ## Verification evidence
 

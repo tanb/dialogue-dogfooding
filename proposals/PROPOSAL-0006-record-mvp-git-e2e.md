@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0006
 type: proposal
-title: MVP Git E2E検証結果を記録する
+title: Record the MVP Git E2E validation results
 status: approved
 scope:
   project: dialogue
@@ -29,15 +29,15 @@ targets:
 requested_changes:
   - field: STATE-MVP-GIT-E2E-VALIDATION-001
     before: null
-    after: ローカルGit E2Eの結果、観測事項、未検証範囲を持つ検証Stateを作成する
-reason: Product Scopeの受入条件を再現可能な実行証拠へ結び付ける
+    after: Create a validation State that holds the results, observations, and unvalidated scope of the local Git E2E
+reason: Tie the acceptance conditions of the Product Scope to reproducible execution evidence
 evidence_refs:
   - development/tests/knowledge_git_e2e_test.rb
   - product/skills/manage-project-knowledge/scripts/resolve-source
   - product/skills/manage-project-knowledge/SKILL.md
-impact: MVPの検証済み範囲と、実ホスティングで残る検証課題が明確になる
+impact: The validated scope of the MVP and the validation issues that remain for real hosting become clear
 ---
 
-# MVP Git E2E検証結果を記録する
+# Record the MVP Git E2E validation results
 
-`AUTH-AGENT-CODEX-001`のC2 Delegationに基づき、実行結果を事実記録として同期する。
+Based on the C2 delegation of `AUTH-AGENT-CODEX-001`, the execution results are synchronized as a factual record.

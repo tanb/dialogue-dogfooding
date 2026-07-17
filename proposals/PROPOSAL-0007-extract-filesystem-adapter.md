@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0007
 type: proposal
-title: Filesystem AdapterをProduct v1から分離する
+title: Separate the Filesystem Adapter from Product v1
 status: approved
 scope:
   project: dialogue
@@ -40,24 +40,24 @@ targets:
     expected_revision: 3
 requested_changes:
   - field: product-v1-deliverables
-    before: Filesystem Adapterと独立CLIを含む
-    after: .knowledge.yml、Git discovery Skill、Protocolだけを含む
+    before: Includes the Filesystem Adapter and a standalone CLI
+    after: Includes only .knowledge.yml, the Git discovery Skill, and the Protocol
   - field: filesystem-reference-implementation.status
     before: active
     after: inactive
   - field: filesystem-reference-implementation.location
     before: product/
     after: development/experiments/filesystem-adapter/
-reason: Adapter固有のProtocol Engine開発をMVPから外し、Git Knowledge RepositoryをSkillで参照・編集する利用者価値の検証へ集中する
+reason: Remove Adapter-specific Protocol Engine development from the MVP, and focus on validating the user value of referencing and editing a Git Knowledge Repository through a Skill
 evidence_refs:
   - development/tests/knowledge_git_e2e_test.rb
   - development/knowledge/docs/mvp-git-e2e-validation.md
   - product/skills/manage-project-knowledge/SKILL.md
-impact: Product v1の配布面と保守対象が縮小し、既存Adapterは削除せず再開条件付きの実験資産として残る
+impact: The distribution surface and maintenance scope of Product v1 shrink, and the existing Adapter remains as an experimental asset that is not deleted and has a resumption condition
 ---
 
-# Filesystem AdapterをProduct v1から分離する
+# Separate the Filesystem Adapter from Product v1
 
 ## Decision
 
-ユーザーは、`adapters/filesystem/lib`をv1スコープでは開発しない方針を承認した。AdapterとCLIをProduct成果物から外し、Inactiveな開発実験として保存する。
+The user approved the policy of not developing `adapters/filesystem/lib` within the v1 scope. The Adapter and CLI are removed from the Product deliverables and preserved as an inactive development experiment.

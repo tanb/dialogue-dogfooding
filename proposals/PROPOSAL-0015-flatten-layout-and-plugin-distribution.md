@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0015
 type: proposal
-title: レイアウトをフラット化しClaude Codeプラグインとして配布可能にする
+title: Flatten the layout and make it distributable as a Claude Code plugin
 status: approved
 scope:
   project: dialogue
@@ -29,9 +29,9 @@ extensions:
       subject_revision: 3
       decided_at: "2026-07-18T02:30:00+09:00"
       conditions:
-        - product/ と development/ を解消し配布物を直下に置く
-        - 配布境界は .claude-plugin の manifest が宣言する
-        - LICENSE(MIT)を同一PRで追加する
+        - Dissolve product/ and development/ and place the deliverables at the top level
+        - The distribution boundary is declared by the .claude-plugin manifest
+        - Add LICENSE (MIT) in the same PR
 change_class: C4
 proposed_by: agent:claude
 targets:
@@ -43,43 +43,44 @@ targets:
     expected_revision: 3
 requested_changes:
   - field: repository-layout
-    before: product/ と development/ の二分。skills は product/skills 配下
-    after: skills/protocol/schemas/templates/dogfooding/scripts/tests を直下。pyproject.toml をルートへ
+    before: A split into product/ and development/. skills lives under product/skills
+    after: skills/protocol/schemas/templates/dogfooding/scripts/tests at the top level. pyproject.toml at the root
   - field: distribution
-    before: 配布機構なし（ディレクトリ規約のみ）
-    after: .claude-plugin(marketplace.json + plugin.json, source ./)によりClaude Codeプラグイン配布。skills.shにも対応
+    before: No distribution mechanism (directory convention only)
+    after: Distribute as a Claude Code plugin via .claude-plugin (marketplace.json + plugin.json, source ./). Also supports skills.sh
   - field: acceptance-6
-    before: ProductとDevelopmentのディレクトリ境界分離
-    after: 配布物と内部資産の境界を .claude-plugin manifest が宣言
+    before: Directory-boundary separation of Product and Development
+    after: The boundary between deliverables and internal assets is declared by the .claude-plugin manifest
 reason: >-
-  配布しやすくモダンな構成にする。product/ は一般的でなく冗長なため解消し、skills を直下に出す。
-  mattpocock/skills を参考に .claude-plugin でインストール可能にする。
+  Make the structure easy to distribute and modern. product/ is uncommon and redundant, so dissolve it
+  and surface skills at the top level. Following mattpocock/skills, make it installable via .claude-plugin.
 evidence_refs:
   - conversation:flatten-modern-layout-2026-07-18
   - github:mattpocock/skills
   - STATE-PRODUCT-SCOPE-001
 impact: >-
-  配布物のディレクトリ配置が変わり、.claude-plugin で /plugin marketplace add tanb/dialogue から
-  インストール可能になる。product/development分離は「配布境界をmanifestが宣言」に再定義。
-  プロトコル契約・スキーマ・拒否メッセージの意味は不変。
+  The directory placement of the deliverables changes, and via .claude-plugin it becomes installable from
+  /plugin marketplace add tanb/dialogue. The product/development separation is redefined as "the manifest
+  declares the distribution boundary." The meaning of the protocol contract, schemas, and rejection
+  messages is unchanged.
 ---
 
-# レイアウトをフラット化しプラグイン配布可能にする
+# Flatten the layout and make it distributable as a plugin
 
 ## Decision
 
-ユーザーは次を確定した。
+The user finalized the following.
 
-- `product/` と `development/` を解消し、`skills/` `protocol/` `schemas/` `templates/` `dogfooding/` `scripts/` `tests/` を直下に置く。`pyproject.toml` はルートへ（Python慣習）。
-- `mattpocock/skills` を参考に `.claude-plugin/`（`marketplace.json` + `plugin.json`, `source: "./"`）を追加し、Claude Code プラグインとして配布可能にする。skills.sh の `npx skills add` にも対応。
-- `LICENSE`（MIT）を同一 PR で追加する。
+- Dissolve `product/` and `development/`, and place `skills/` `protocol/` `schemas/` `templates/` `dogfooding/` `scripts/` `tests/` at the top level. Put `pyproject.toml` at the root (Python convention).
+- Following `mattpocock/skills`, add `.claude-plugin/` (`marketplace.json` + `plugin.json`, `source: "./"`) and make it distributable as a Claude Code plugin. Also support skills.sh's `npx skills add`.
+- Add `LICENSE` (MIT) in the same PR.
 
 ## Rationale
 
-`product/` は一般的なリポジトリで使われず冗長。skills を直下に出すのがモダンな潮流に沿う。配布のしやすさの本体は `.claude-plugin` の manifest であり、`source: "./"` で `skills/` が自動発見される（公式仕様で確認済み）。product/development の分離思想は「配布境界を manifest が宣言する」形で保つ。
+`product/` is not used in typical repositories and is redundant. Surfacing skills at the top level follows the modern trend. The core of ease of distribution is the `.claude-plugin` manifest, and with `source: "./"` the `skills/` directory is auto-discovered (confirmed in the official spec). The product/development separation philosophy is preserved in the form of "the manifest declares the distribution boundary."
 
 ## Approval evidence
 
-- 「それでもskillsをtopレベルにした方が良いでしょう。なぜならproductというディレクトリが一般的なレポジトリで使用されるディレクトリではなく、しかも冗長です。」
-- 「完全フラット（推奨）」「スタックをマージ後に単独PR（推奨）」（範囲とタイミングの確定）
-- 「すでに#12までマージされているのでリストラクチャして欲しいです。そのあとでLICENSEの追加をし、１つのPRで提出してください。」
+- "Even so, it would be better to put skills at the top level. Because the product directory is not a directory used in typical repositories, and moreover it is redundant."
+- "Completely flat (recommended)" "A standalone PR after merging the stack (recommended)" (finalizing the scope and timing).
+- "Since it's already merged up to #12, I'd like you to restructure it. After that, add the LICENSE and submit it in a single PR."

@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0016
 type: change_record
-title: agent権限をベンダー中立なAUTH-AGENT-001へ統合しfilesystem文言を刷新する
+title: Consolidate agent authority into the vendor-neutral AUTH-AGENT-001 and refresh the filesystem wording
 status: applied
 scope:
   project: dialogue
@@ -18,7 +18,7 @@ related:
 extensions:
   approval_source: direct_user_instruction
   operation: change_governance
-change_set_id: CHANGESET-0016
+  change_set_id: CHANGESET-0016
 proposal_ref: PROPOSAL-0016
 change_class: C4
 decision: approved
@@ -29,10 +29,11 @@ approvals:
     subject_revision: 2
     decided_at: "2026-07-18T03:00:00+09:00"
     conditions:
-      - C4とchange_governanceはperson:project-owner専用のまま維持する
-      - identity binding IDENTITY-FILESYSTEM-OWNER-001 は有効なlocal_account束縛として保持する
+      - Keep C4 and change_governance exclusive to person:project-owner
+      - Retain identity binding IDENTITY-FILESYSTEM-OWNER-001 as a valid local_account binding
     evidence: >-
-      統合する（AUTH-AGENT-001, agent:*）。CLAUDEとCODEXで分ける必要があるのか疑問です。
+      Consolidate them (AUTH-AGENT-001, agent:*). I question whether there is any need
+      to split CLAUDE and CODEX.
 targets:
   - id: AUTHORITY-REGISTRY-001
     action: update
@@ -41,29 +42,30 @@ targets:
     result: applied
     error: null
 reason: >-
-  Registryの陳腐化（agent:claude未登録）を解消するため、agent権限をベンダー中立な
-  AUTH-AGENT-001（agent:*）へ統合し、削除済みFilesystem Adapterを名指す記述を一般化する。
+  To resolve the Registry's staleness (agent:claude was not registered), consolidate agent
+  authority into the vendor-neutral AUTH-AGENT-001 (agent:*), and generalize the wording that
+  names the already-deleted Filesystem Adapter.
 applied_at: "2026-07-18T03:00:00+09:00"
 applied_by: agent:claude
 ---
 
-# agent権限をベンダー中立なAUTH-AGENT-001へ統合する
+# Consolidate agent authority into the vendor-neutral AUTH-AGENT-001
 
 ## Applied changes
 
-- `AUTHORITY-REGISTRY-001` を rev2→3 に更新（`change_governance` 操作、C4）。
-- `AUTH-AGENT-CODEX-001`（actor_ref: agent:codex）を `AUTH-AGENT-001`（actor_ref: `agent:*`）へ置換。operations と change_classes(C0–C3) は不変、`delegated_by: AUTH-HUMAN-001`、C3 は owner Approval 必須の条件を維持。
-- 条件に「`agent:*` は委任された任意のAIエージェントを表し、個々のactorはChange Recordのcreated_by/applied_byで監査する」を追記。
-- 本文の「Filesystem AdapterではOSの実効UIDを認証主体として写像し…」を「ローカルOSアカウントの実効UID…」へ一般化。`agent:*` と C4/change_governance の人間専用性を明記。
-- identity binding `IDENTITY-FILESYSTEM-OWNER-001` は有効な local_account 束縛として保持。
+- Updated `AUTHORITY-REGISTRY-001` from rev2 to rev3 (`change_governance` operation, C4).
+- Replaced `AUTH-AGENT-CODEX-001` (actor_ref: agent:codex) with `AUTH-AGENT-001` (actor_ref: `agent:*`). The operations and change_classes (C0–C3) are unchanged, and `delegated_by: AUTH-HUMAN-001` and the condition that C3 requires owner Approval are preserved.
+- Added to the conditions: "`agent:*` represents any delegated AI agent, and individual actors are audited via the created_by/applied_by of the Change Record."
+- Generalized the body text from "The Filesystem Adapter maps the OS's effective UID as the authenticating principal…" to "the effective UID of the local OS account…". Stated explicitly the human-only nature of `agent:*` and of C4/change_governance.
+- Retained the identity binding `IDENTITY-FILESYSTEM-OWNER-001` as a valid local_account binding.
 
 ## Rationale
 
-agent:codex と agent:claude は同一権限で運用されており、ベンダー別 authority は保守コストのみ増やす。単一のベンダー中立 authority に統合すると、将来のエージェント追加で登録が不要になり、監査は各 Change Record の created_by/applied_by で担保できる。Filesystem Adapter は削除・Archive 済みで、その名指しは陳腐化していた。
+agent:codex and agent:claude are operated with the same authority, and per-vendor authority only increases maintenance cost. Consolidating them into a single vendor-neutral authority removes the need to register future agents, and auditing is guaranteed by the created_by/applied_by of each Change Record. The Filesystem Adapter has been deleted and archived, and naming it had become stale.
 
 ## Impact
 
-- 委任エージェント（codex, claude, 将来の実装）の権限が `AUTH-AGENT-001` 一本で表現される。
-- C4 と `change_governance` は `person:project-owner` 専用のまま。エージェントへ委任しない。
-- Conformance ケースは各自 inline に authorities を持つ自己完結型のため、本変更の影響を受けない。
-- 歴史的 Proposal/Change Record 内の `AUTH-AGENT-CODEX-001` / `agent:codex` は過去の記録として保持。
+- The authority of delegated agents (codex, claude, and future implementations) is expressed by the single `AUTH-AGENT-001`.
+- C4 and `change_governance` remain exclusive to `person:project-owner`. They are not delegated to agents.
+- The Conformance cases are self-contained, each carrying its authorities inline, so they are unaffected by this change.
+- The `AUTH-AGENT-CODEX-001` / `agent:codex` within historical Proposals/Change Records are retained as past records.

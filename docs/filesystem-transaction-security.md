@@ -27,16 +27,16 @@ extensions:
 
 ## Current state
 
-- Transaction markerは文書バックアップ本体をBase64で保持する。
-- Markerは`0600`で作成し、同じOSユーザー以外へ公開しない。
-- 通常文書は既存permission、または新規作成時`0644`を維持する。
-- Prepared markerは次回操作でロールバックする。
-- Committed markerは内容を維持したまま除去する。
-- Marker、Lock、一時ファイルはGit管理対象外とする。
+- The transaction marker holds the document backup itself in Base64.
+- The marker is created with `0600` and is not exposed to anyone other than the same OS user.
+- Ordinary documents keep their existing permissions, or `0644` at new creation.
+- A prepared marker is rolled back at the next operation.
+- A committed marker is removed while keeping its content.
+- Markers, Locks, and temporary files are excluded from Git management.
 
 ## Delegated change boundary
 
-C0〜C2は有効なDelegationによってHuman Approvalなしで適用できる。C3とC4は引き続きHuman Approvalを必須とする。Delegation適用時はChange Recordの`approvals`を空配列とし、`extensions.delegation_ref`へ根拠を記録する。
+C0 through C2 can be applied without Human Approval by a valid Delegation. C3 and C4 continue to require Human Approval. When a Delegation is applied, the Change Record's `approvals` is an empty array, and the basis is recorded in `extensions.delegation_ref`.
 
 ## Verification
 

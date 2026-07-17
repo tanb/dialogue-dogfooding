@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0004
 type: proposal
-title: Trusted Approval v0.2を採用する
+title: Adopt Trusted Approval v0.2
 status: approved
 scope:
   project: dialogue
@@ -41,27 +41,27 @@ targets:
 requested_changes:
   - field: STATE-TRUSTED-APPROVAL-001
     before: null
-    after: Trusted Approval v0.2の規範仕様をActive Stateとして作成する
+    after: Create the normative specification of Trusted Approval v0.2 as an active State
   - field: AUTHORITY-REGISTRY-001.identity_bindings
     before: null
-    after: filesystem:uid:501をperson:project-ownerへlocal_account保証で束縛する
+    after: Bind filesystem:uid:501 to person:project-owner with a local_account guarantee
   - field: filesystem-approval-flow
-    before: CLI引数のactor_refを信頼する
-    after: OS Identity、Proposal Digest、Approval Envelopeを検証する
-reason: Human Approvalのなりすまし、承認後改変、別Proposalへの転用、期限切れまたは失効済み承認の利用を防ぐ
+    before: Trust the actor_ref of the CLI argument
+    after: Verify the OS Identity, the Proposal Digest, and the Approval Envelope
+reason: Prevent impersonation of Human Approval, post-approval tampering, reuse for a different Proposal, and use of an expired or revoked approval
 evidence_refs:
   - docs/failure-model.md
   - docs/knowledge-governance.md
   - adapters/filesystem/lib/dialogue/workflow.rb
   - adapters/filesystem/lib/dialogue/apply_operation.rb
   - tests/filesystem_cli_test.rb
-impact: Approvalの本人性と対象内容の結合が強化され、旧CLI契約は破壊的に変更される
+impact: The binding between an approval's authenticity and its target content is strengthened, and the old CLI contract is changed in a breaking way
 ---
 
-# Trusted Approval v0.2を採用する
+# Adopt Trusted Approval v0.2
 
 ## Decision
 
-ユーザーは、直前に提示されたTrusted Approval v0.2の作業内容に対して「お願いします」と明示した。この指示をC4変更のHuman Approvalとして記録する。
+The user explicitly stated "Please go ahead" regarding the Trusted Approval v0.2 work presented immediately beforehand. This instruction is recorded as Human Approval for the C4 change.
 
-このApprovalは新仕様の導入前に発生したためv0.1履歴形式である。`STATE-TRUSTED-APPROVAL-001`の発効後に作成されるApprovalはv0.2 Envelopeを必須とする。
+This approval occurred before the introduction of the new specification, so it uses the v0.1 history format. Approvals created after `STATE-TRUSTED-APPROVAL-001` takes effect require the v0.2 Envelope.

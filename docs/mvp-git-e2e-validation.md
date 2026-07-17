@@ -30,7 +30,7 @@ extensions:
 
 ## Verdict
 
-`.dialogue.yml`からGit Knowledge Repositoryを発見し、参照、編集、Change Record作成、push、別checkoutでの再取得までのMVP機構は、ローカル一時Git remote上で成功した。
+The MVP mechanism of discovering the Git Knowledge Repository from `.dialogue.yml`, referencing, editing, creating a Change Record, pushing, and re-fetching from a separate checkout succeeded on a local temporary Git remote.
 
 ## Executed scenario
 
@@ -46,18 +46,18 @@ Project/.dialogue.yml
 → updated knowledge and commit verification
 ```
 
-別シナリオで二つのcheckoutを同じ`main`から作成し、一方のpush後に他方の古いpushがnon-fast-forwardとして拒否されることも確認した。
+In a separate scenario, two checkouts were created from the same `main`, and it was also confirmed that after one pushed, the other's stale push was rejected as a non-fast-forward.
 
 ## Observations
 
-- ResolverはGit URL、`main` ref、`knowledge` document rootを返した。
-- Clone後の`remote.origin.url`は設定URLと一致した。
-- `status: active`、`revision: 1`のStateを読み取れた。
-- Stateを`revision: 2`へ更新し、変更前後と理由を持つChange Recordを追加した。
-- Commitをbare remoteへpushできた。
-- 別cloneから更新State、Change Record、commit messageを確認できた。
-- Project Repository側へKnowledge文書は生成されなかった。
-- Stale checkoutからのpushは拒否され、remoteの最新commitは維持された。
+- The Resolver returned the Git URL, the `main` ref, and the `knowledge` document root.
+- After the clone, `remote.origin.url` matched the configured URL.
+- A State with `status: active` and `revision: 1` could be read.
+- The State was updated to `revision: 2`, and a Change Record with the before/after and reason was added.
+- The commit could be pushed to the bare remote.
+- The updated State, Change Record, and commit message could be confirmed from a separate clone.
+- No Knowledge document was generated on the Project Repository side.
+- A push from a stale checkout was rejected, and the latest commit of the remote was preserved.
 
 ## Test result
 
@@ -67,11 +67,11 @@ test_knowledge_git_e2e.py: 2 passed
 
 ## Not yet validated
 
-- GitHub、GitLabなど実ホスティングサービスの認証と権限
-- SSH agent、credential helper、token失効時の応答
-- ネットワーク切断、rate limit、大容量Repository
-- 実AgentがSkillだけを与えられて行う独立forward test
-- 複数人の意味上の編集競合とmerge運用
+- Authentication and permissions of real hosting services such as GitHub and GitLab
+- SSH agent, credential helper, and the response on token revocation
+- Network disconnection, rate limit, and large-capacity Repository
+- An independent forward test that a real Agent performs given only the Skill
+- Semantic edit conflicts among multiple people and merge operations
 
 ## Reproduction
 

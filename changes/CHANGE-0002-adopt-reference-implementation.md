@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0002
 type: change_record
-title: Filesystem Reference AdapterとCore Skillを採用する
+title: Adopt the Filesystem Reference Adapter and Core Skill
 status: applied
 scope:
   project: dialogue
@@ -42,16 +42,16 @@ targets:
     after_revision: 1
     result: applied
     error: null
-reason: Protocolの実行可能性をFilesystem上の垂直スライスで実証する
+reason: Demonstrate the executability of the Protocol through a vertical slice on the filesystem
 applied_at: "2026-07-16T03:23:25+09:00"
 applied_by: agent:codex
 ---
 
-# Filesystem Reference AdapterとCore Skillを採用する
+# Adopt the Filesystem Reference Adapter and Core Skill
 
 ## Result
 
-- Filesystem AdapterとJSON CLIを実装した。
-- Core Agent SkillをSkill Creatorで初期化して実装した。
-- APIテスト6件31 assertion、CLIテスト3件19 assertionが通過した。
-- Skill wrapperからActiveなProtocolをResolveできた。
+- Implemented the Filesystem Adapter and the JSON CLI.
+- Initialized and implemented the Core Agent Skill with the Skill Creator.
+- 6 API tests with 31 assertions and 3 CLI tests with 19 assertions passed.
+- Resolved the active Protocol from the Skill wrapper.

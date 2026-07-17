@@ -28,61 +28,61 @@ extensions:
 
 # Dialogue Product Direction v1
 
-`STATE-PRODUCT-SCOPE-001`がProduct v1の配布物と受入基準を定める正本である。本ドキュメントはその上位にある方向性・ポジショニング・次の一歩・North Starの正本であり、スコープ契約は変更しない。
+`STATE-PRODUCT-SCOPE-001` is the source of truth that defines the deliverables and acceptance criteria of Product v1. This document sits above it and is the source of truth for the direction, positioning, next step, and North Star; it does not change the scope contract.
 
 ## Thesis
 
-**意思決定した事実は、一箇所にあるべきである。**
+**Decided facts should live in one place.**
 
-Dialogueが提供するのは知識管理ツールではなく、**決定の単一正本（single source of truth for decisions）**である。コード、チャットログ、Gitコミット履歴のいずれでもなく、「何を、なぜ決めたか」だけが一箇所に住む。人間も複数のAI Agentも、同じ正本を読み、同じ正本へ書く。マルチエージェント×マルチヒューマンで作業しても、決定は単数のまま保たれる。
+What Dialogue provides is not a knowledge management tool but a **single source of truth for decisions**. Not in the code, the chat logs, or the Git commit history — only "what was decided and why" lives in one place. Both humans and multiple AI Agents read from the same source of truth and write to the same source of truth. Even when working multi-agent by multi-human, decisions stay singular.
 
 ## Two pillars
 
-1. **Governance（決定の単一正本 + 競合→人間Escalation）**
-   複数のActorが同じ知識を更新して食い違ったとき、last-write-winsで正本を静かに分岐させない。停止して人間へEscalationする。この「止まって人間に聞く」がGovernanceの本体であり、共有ストレージそのものではない。
+1. **Governance (single source of truth for decisions + conflict → human Escalation)**
+   When multiple Actors update the same knowledge and disagree, do not let the source of truth silently branch via last-write-wins. Stop and escalate to a human. This "stop and ask a human" is the substance of Governance, not the shared storage itself.
 
-2. **Anti-rot（陳腐化・重複の検知とAgentによる継続整理）**
-   Dialogueは重複、矛盾、参照切れ、陳腐化を継続的な保守対象とし、Agentに整理させることを約束する。人間の文書は放置すれば腐る。Agent駆動の継続メンテナンスで「腐らない知識」を保つ。これがキラー差別化＝「これが欲しかった」の決め手である。
+2. **Anti-rot (detection of staleness and duplication + continuous curation by an Agent)**
+   Dialogue treats duplication, contradiction, broken references, and staleness as targets of continuous maintenance, and promises to have an Agent curate them. Human documents rot if left alone. Agent-driven continuous maintenance keeps knowledge "rot-free." This is the killer differentiator — the deciding factor for "this is what I wanted."
 
 ## Positioning and differentiation
 
-- **主差別化（対 Agent memory: CLAUDE.md / rules 等）**
-  Agent memoryは「1エージェントの私的メモ」でrepo・人ごとにサイロ化し、書き直しも矛盾も検知しない。Dialogueは共有・正本・競合時Escalation。全員のmemoryを一つにし、バラつきを止める。
+- **Primary differentiation (vs. Agent memory: CLAUDE.md / rules, etc.)**
+  Agent memory is "one agent's private notes," siloed per repo and per person, and it detects neither rewrites nor contradictions. Dialogue is shared, canonical, and escalates on conflict. It unifies everyone's memory into one and stops the variance.
 
-- **プロモーションの見出し（対 Notion / Confluence 等のwiki）**
-  「人間のドキュメント管理ほど杜撰なものはない」。wikiは人間向けUIでAgentが機械的に発見・検証できず、腐敗を検知しない。Dialogueは`.dialogue.yml`によるAgent-native discoveryと、Schema + Conformanceによる機械検証、Agent向けに構築されたGovernance Protocolを持つ。
+- **Promotional headline (vs. wikis such as Notion / Confluence)**
+  "Nothing is as sloppy as human document management." A wiki is a human-facing UI that an Agent cannot mechanically discover and verify, and it does not detect rot. Dialogue has Agent-native discovery via `.dialogue.yml`, mechanical verification via Schema + Conformance, and a Governance Protocol built for Agents.
 
 ## Canonical placement is configurable
 
-正本の置き場所は`.dialogue.yml`で選べる。独立RepositoryでもよいしKnowledge rootに同一Repositoryを指定してもよい。ただし同一Repositoryを正本にした場合、branchごとに正本の状態が生じるため、マージの運用負荷が発生する。この負荷は導入者が理解した上で選択する必要がある。Protocolは配置に中立であり、独立Repositoryを強制しない。
+The location of the source of truth can be chosen in `.dialogue.yml`. It can be an independent Repository, or you can point the Knowledge root at the same Repository. However, if the same Repository is made the source of truth, a per-branch source-of-truth state arises, so a merge operational burden occurs. This burden must be chosen with the adopter understanding it. The Protocol is neutral about placement and does not force an independent Repository.
 
 ## Next step (decided): Collision & rot demo
 
-方向性を伝える最大のボトルネックは「見せられる証拠」の不在である。次の一歩は、動くexample Knowledge Repositoryとドライバによる実演デモとする。
+The biggest bottleneck in conveying the direction is the absence of "evidence that can be shown." The next step is a working example Knowledge Repository and a driver-based live demonstration.
 
-1. 2つのAgentが同じ決定を更新して衝突し、Dialogueが停止して人間へEscalationするシーン。
-2. 陳腐化・重複を検知し、Agentが整理するシーン。
+1. A scene where two Agents update the same decision and collide, and Dialogue stops and escalates to a human.
+2. A scene where staleness and duplication are detected and an Agent curates them.
 
-既存の`tests/conformance`、Product Skillの`resolve-source`、`.dialogue.yml` templateを再利用する。このデモはNorth Star（下記）とプロモーション双方の前提物になる。
+Reuse the existing `tests/conformance`, the Product Skill's `resolve-source`, and the `.dialogue.yml` template. This demo becomes a prerequisite for both the North Star (below) and promotion.
 
 ## North star: Turbovec-backed MCP for fast canonical search
 
-将来、Turbovecを連携させたMCPを用意し、正本への高速検索を提供する構想をNorth Starとして記録する。正本アクセスの高速化はドキュメント参照と意思決定の高速化につながり、キラーコンテンツになり得る。
+As a North Star, we record the concept of, in the future, preparing an MCP integrated with Turbovec to provide fast search over the source of truth. Speeding up access to the source of truth leads to faster document reference and decision-making, and can become killer content.
 
-**制約（正本性の保護）:**
+**Constraints (protecting canonicity):**
 
-- Turbovec検索層は**正本ではなく、Git正本の上に乗る派生的なreadアクセラレータ**として位置づける。これは「RAG・検索インデックスは派生物とし、知識の正本にしない」というDialogueの原則と整合する。
-- ベクトル/意味検索は近似でありlossyであるため、**discovery（どこで何を扱うか、関連する決定）の高速化**に用い、権威ある読み取り（我々は何を決めたか）は近似の推測ではなく**正確な正本レコードへハンドオフ**する。
-- 本構想は**Product v1スコープ外**であり、`STATE-PRODUCT-SCOPE-001`の「Outside initial scope: RAGまたはVector Database」と矛盾しない。v1では実装せず、上記デモ（次の一歩）を先行させる。
+- The Turbovec search layer is positioned **not as the source of truth, but as a derived read accelerator that sits on top of the Git source of truth**. This is consistent with Dialogue's principle that "RAG and search indexes are derived artifacts and are not the source of truth of knowledge."
+- Because vector/semantic search is approximate and lossy, it is used **to speed up discovery (where and what is handled, and the related decisions)**, and the authoritative read (what did we decide) is **handed off to the exact source-of-truth record** rather than an approximate guess.
+- This concept is **outside the Product v1 scope** and does not contradict "Outside initial scope: RAG or Vector Database" in `STATE-PRODUCT-SCOPE-001`. It is not implemented in v1; the demo above (the next step) goes first.
 
 ## Relationship to Product Scope v1
 
-- 本ドキュメントは`STATE-PRODUCT-SCOPE-001`のスコープ契約・受入基準を変更しない。
-- Turbovec MCPはv1スコープ外のNorth Starであり、正本ではない派生層であるため、scope docのVector Database除外と整合する。
-- Two pillarsのうちGovernanceはv1の主導線（Human Escalation、独立Change Record）と一致する。Anti-rotの「Agentによる継続整理」を明示的な製品約束として本ドキュメントで初めて正本化する。
+- This document does not change the scope contract or acceptance criteria of `STATE-PRODUCT-SCOPE-001`.
+- The Turbovec MCP is a North Star outside the v1 scope and is a derived layer that is not the source of truth, so it is consistent with the Vector Database exclusion of the scope doc.
+- Of the Two pillars, Governance coincides with the primary flow of v1 (Human Escalation, independent Change Record). This document canonicalizes for the first time the Anti-rot "continuous curation by an Agent" as an explicit product promise.
 
 ## Open questions
 
-1. Anti-rot（陳腐化・重複検知とAgent整理）をProtocolの正式オペレーションとしてどこまで規定するか（将来のApproach B候補）。
-2. 同一Repository正本時のbranch×マージ運用負荷を、どの導線・ドキュメントで導入者へ提示するか。
-3. Turbovec MCPのdiscovery→正本ハンドオフ境界の具体設計（v1後）。
+1. To what extent should Anti-rot (staleness and duplication detection, and Agent curation) be specified as a formal operation of the Protocol (a future Approach B candidate)?
+2. Through which flow and document should the branch-and-merge operational burden of same-Repository canonicity be presented to adopters?
+3. The concrete design of the discovery → source-of-truth handoff boundary of the Turbovec MCP (after v1).

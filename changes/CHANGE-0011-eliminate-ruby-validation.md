@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0011
 type: change_record
-title: 検証ツールとProduct SkillスクリプトをRubyからPythonへ全面移行する
+title: Fully migrate the verification tools and Product Skill scripts from Ruby to Python
 status: applied
 scope:
   project: dialogue
@@ -30,7 +30,7 @@ approvals:
     decided_at: "2026-07-17T22:55:37+09:00"
     conditions: []
     evidence: >-
-      1でお願いします。またさらにRubyを完全排除まで進めたいです。
+      Go with option 1. And I would also like to go further and eliminate Ruby completely.
 targets:
   - id: CONFORMANCE-001
     action: update
@@ -45,29 +45,30 @@ targets:
     result: applied
     error: null
 reason: >-
-  検証スタックをPython/uvへ統一し、環境再現性を確保するため、Ruby実装の検証スクリプトと
-  Product Skillスクリプトを廃止してPythonの参照実装に置き換える
+  To unify the verification stack on Python/uv and secure reproducibility of the
+  environment, retire the Ruby verification scripts and Product Skill scripts and
+  replace them with the Python reference implementation.
 applied_at: "2026-07-17T22:55:37+09:00"
 applied_by: agent:claude
 ---
 
-# 検証ツールとProduct SkillスクリプトをRubyからPythonへ全面移行する
+# Fully migrate the verification tools and Product Skill scripts from Ruby to Python
 
 ## Applied changes
 
-- 参照オラクル`check-conformance.rb`を廃止し、`scripts/check_conformance.py`を唯一のConformanceランナーとした。
-- `validate-repository.rb`を`scripts/validate_repository.py`へ移植した。
-- Product Skillの`scripts/resolve-source`をRubyからPython（PyYAML依存）へ書き換えた。
-- 検証ハーネスをpytestに一本化し、Ruby/Pythonパリティテストを撤去した。
-- CIからRubyツールチェーンを除去し、uvのみで検証する構成にした。
-- `CONFORMANCE-001`（参照オラクルとコマンド）と`STATE-MVP-GIT-E2E-VALIDATION-001`（test_file・再現手順）を現状へ更新した。
+- Retired the reference oracle `check-conformance.rb` and made `scripts/check_conformance.py` the sole Conformance runner.
+- Ported `validate-repository.rb` to `scripts/validate_repository.py`.
+- Rewrote the Product Skill's `scripts/resolve-source` from Ruby to Python (with a PyYAML dependency).
+- Consolidated the verification harness onto pytest and removed the Ruby/Python parity tests.
+- Removed the Ruby toolchain from CI, adopting a configuration that verifies with uv alone.
+- Updated `CONFORMANCE-001` (reference oracle and commands) and `STATE-MVP-GIT-E2E-VALIDATION-001` (test_file and reproduction steps) to the current state.
 
 ## Rationale
 
-`.knowledge.yml`によるGit Knowledge Repository discoveryとConformance検証はProduct v1の主導線である。検証・スクリプトのRuby実装は環境依存が固定されておらず、uvによるPython環境で再現性を担保する方針に統一する。Conformance YAMLは言語中立の契約のままで、ランナー言語のみ変更する。入力の意味と期待結果は弱めていない。
+Git Knowledge Repository discovery via `.knowledge.yml` and Conformance verification are the primary path of Product v1. The Ruby implementation of the verification and scripts did not pin its environment dependencies, so we unify on a policy of guaranteeing reproducibility through a Python environment managed by uv. The Conformance YAML remains a language-neutral contract; only the runner language changes. The meaning of the inputs and the expected results are not weakened.
 
 ## Impact
 
-- リポジトリからRuby実行系への依存が消え、検証はPython 3 + uvで完結する。
-- Product Skillの`resolve-source`はPython 3とPyYAMLを必要とする。
-- Conformanceケース、Protocol仕様の安全判断、必須観測結果は不変。
+- The repository's dependency on a Ruby runtime disappears, and verification is completed with Python 3 + uv.
+- The Product Skill's `resolve-source` requires Python 3 and PyYAML.
+- The Conformance cases, the Protocol specification's safety judgments, and the required observed results are unchanged.

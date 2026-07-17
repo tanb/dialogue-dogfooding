@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0003
 type: proposal
-title: Filesystem transaction securityをGovernanceへ同期する
+title: Synchronize Filesystem transaction security into Governance
 status: approved
 scope:
   project: dialogue
@@ -41,16 +41,16 @@ requested_changes:
         canonical_for: dialogue/product/filesystem-transaction-security
         owners:
           - person:project-owner
-      body: Marker permissionとDelegation適用境界を、実装およびテスト結果へ同期する
-reason: 既存Governanceと実装の差を解消し、回復用バックアップの機密性を保証する
+      body: Synchronize the marker permission and the delegated application boundary with the implementation and the test results
+reason: Resolve the gap between the existing Governance and the implementation, and guarantee the confidentiality of the recovery backup
 evidence_refs:
   - adapters/filesystem/lib/dialogue/repository.rb
   - adapters/filesystem/lib/dialogue/apply_operation.rb
   - tests/filesystem_adapter_test.rb
   - tests/conformance/cases/C-010-delegated-c2-without-human-approval.yml
-impact: Transaction markerが0600で保護され、C2とC3/C4のApproval境界がSchemaとAdapterで一致する
+impact: The transaction marker is protected with 0600, and the C2 and C3/C4 approval boundaries match between the Schema and the Adapter
 ---
 
-# Filesystem transaction securityをGovernanceへ同期する
+# Synchronize Filesystem transaction security into Governance
 
-`AUTH-AGENT-CODEX-001`のC2 Delegationに基づいて適用した。Human Approvalは要求されず、`CHANGE-0003`の`approvals`は空配列である。
+Applied based on the C2 delegation of `AUTH-AGENT-CODEX-001`. Human Approval was not required, and the `approvals` of `CHANGE-0003` is an empty array.

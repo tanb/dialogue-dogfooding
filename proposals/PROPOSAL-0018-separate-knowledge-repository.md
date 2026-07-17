@@ -1,7 +1,7 @@
 ---
 id: PROPOSAL-0018
 type: proposal
-title: Knowledgeを製品リポジトリから独立したdialogue-dogfoodingへ分離する
+title: Separate Knowledge from the product repository into the independent dialogue-dogfooding
 status: approved
 scope:
   project: dialogue
@@ -30,8 +30,8 @@ extensions:
       subject_revision: 4
       decided_at: "2026-07-18T05:00:00+09:00"
       conditions:
-        - Knowledge rootは新Repositoryのトップレベル（path .）とする
-        - 製品リポジトリtanb/dialogueは配布物のみとし内部統治インスタンスを含めない
+        - The Knowledge root is the top level (path .) of the new Repository
+        - The product repository tanb/dialogue holds deliverables only and includes no internal governance instance
 change_class: C4
 proposed_by: agent:claude
 targets:
@@ -50,29 +50,30 @@ requested_changes:
       url: https://github.com/tanb/dialogue-dogfooding.git
       path: .
 reason: >-
-  Dialogueはskills.shおよび.claude-pluginでリポジトリ丸ごと配布されるため、co-located構成では
-  Dialogue内部の統治インスタンス（dogfoodingの全governed文書とAuthority Registryのuid束縛）が
-  全ユーザーに配布されてしまう。Knowledgeを独立Private Repository tanb/dialogue-dogfooding へ分離し、
-  製品リポジトリを配布物のみにする。これはDialogueの主用途（プロジェクトから独立したKnowledge
-  Repository）そのものをDogfoodingすることにもなる。
+  Because Dialogue is distributed as an entire repository via skills.sh and .claude-plugin, a co-located
+  configuration would distribute Dialogue's internal governance instance (all governed documents of
+  dogfooding and the uid binding in the Authority Registry) to all users. Separate the Knowledge into the
+  independent private repository tanb/dialogue-dogfooding, and make the product repository deliverables-only.
+  This also dogfoods Dialogue's primary use case itself (a Knowledge Repository independent from the project).
 evidence_refs:
   - conversation:separate-knowledge-repo-2026-07-18
   - github:tanb/dialogue-dogfooding
 impact: >-
-  製品リポジトリtanb/dialogueは配布物（Skill/protocol/schemas/templates）とscripts/testsのみになり、
-  内部統治インスタンスを配布しない。DialogueのKnowledgeはtanb/dialogue-dogfoodingのトップレベルに移り、
-  .dialogue.ymlはそれを指す。CHANGE-0009のco-located採用はここでsupersedeする。
+  The product repository tanb/dialogue becomes only the deliverables (Skill/protocol/schemas/templates) plus
+  scripts/tests, and does not distribute the internal governance instance. Dialogue's Knowledge moves to the
+  top level of tanb/dialogue-dogfooding, and .dialogue.yml points to it. The co-located adoption of CHANGE-0009
+  is superseded here.
 ---
 
-# Knowledgeを独立Repositoryへ分離する
+# Separate Knowledge into an independent Repository
 
 ## Decision
 
-Dialogueはskills.sh（`npx skills add`）と`.claude-plugin`のいずれでも**リポジトリ丸ごと**がユーザーに配布される。co-located構成ではDialogue内部の統治インスタンス（`dogfooding/`の全governed文書、Authority Registryの`uid:501`束縛）が全ユーザーに渡ってしまう。
+Dialogue is distributed to users as an **entire repository** via either skills.sh (`npx skills add`) or `.claude-plugin`. In a co-located configuration, Dialogue's internal governance instance (all governed documents in `dogfooding/` and the `uid:501` binding in the Authority Registry) would be handed to every user.
 
-ユーザー判断により、Knowledgeを独立Private Repository `tanb/dialogue-dogfooding` のトップレベル（path `.`）へ分離し、製品リポジトリ`tanb/dialogue`を配布物のみにする。CHANGE-0009（co-located採用）の該当判断をsupersedeする。
+By the user's judgment, separate the Knowledge into the top level (path `.`) of the independent private repository `tanb/dialogue-dogfooding`, and make the product repository `tanb/dialogue` deliverables-only. Supersede the relevant judgment of CHANGE-0009 (co-located adoption).
 
 ## Approval evidence
 
-- 「skillとして配布するときはこのレポジトリごとユーザーの手元に配布されるかもしれません。それをかんがえるとdogfoodingをこのレポジトリでやらない方がよいと思いはじめました。」
-- 「https://github.com/tanb/dialogue-dogfoodingをつくってあります。こちらのトップレベルをpathに指定してよいです。」「Aでおねがいします。」
+- "When distributed as a skill, this repository might be distributed to users as-is. Considering that, I'm starting to think it would be better not to do dogfooding in this repository."
+- "I've created https://github.com/tanb/dialogue-dogfooding. You may specify its top level as the path." "Please go with A."

@@ -1,7 +1,7 @@
 ---
 id: CHANGE-0015
 type: change_record
-title: レイアウトをフラット化しClaude Codeプラグインとして配布可能にする
+title: Flatten the layout and make it distributable as a Claude Code plugin
 status: applied
 scope:
   project: dialogue
@@ -19,7 +19,7 @@ related:
 extensions:
   approval_source: direct_user_instruction
   reference: github:mattpocock/skills
-change_set_id: CHANGESET-0015
+  change_set_id: CHANGESET-0015
 proposal_ref: PROPOSAL-0015
 change_class: C4
 decision: approved
@@ -30,12 +30,12 @@ approvals:
     subject_revision: 3
     decided_at: "2026-07-18T02:30:00+09:00"
     conditions:
-      - product/ と development/ を解消し配布物を直下に置く
-      - 配布境界は .claude-plugin の manifest が宣言する
-      - LICENSE(MIT)を同一PRで追加する
+      - Dissolve product/ and development/ and place the deliverables directly at the top level
+      - The distribution boundary is declared by the .claude-plugin manifest
+      - Add LICENSE (MIT) in the same PR
     evidence: >-
-      すでに#12までマージされているのでリストラクチャして欲しいです。
-      そのあとでLICENSEの追加をし、１つのPRで提出してください。
+      Since everything up to #12 is already merged, I would like you to restructure it.
+      After that, add the LICENSE and submit it as a single PR.
 targets:
   - id: STATE-PRODUCT-SCOPE-001
     action: update
@@ -50,49 +50,50 @@ targets:
     result: applied
     error: null
 reason: >-
-  配布しやすくモダンな構成にするため、product/ と development/ を解消して配布物を直下に置き、
-  .claude-plugin により Claude Code プラグインとして配布可能にする。
+  To make the layout easy to distribute and modern, dissolve product/ and development/ and
+  place the deliverables directly at the top level, and make it distributable as a Claude Code
+  plugin via .claude-plugin.
 applied_at: "2026-07-18T02:30:00+09:00"
 applied_by: agent:claude
 ---
 
-# レイアウトをフラット化しプラグイン配布可能にする
+# Flatten the layout and make it plugin-distributable
 
 ## Applied changes
 
-### ディレクトリのフラット化（product/ と development/ を解消）
+### Flattening the directories (dissolving product/ and development/)
 - `product/skills/dialogue-knowledge/` → `skills/dialogue-knowledge/`
 - `product/protocol/*.md` → `protocol/`
-- `product/config/knowledge.schema.json` + `product/protocol/schemas/*.json` → `schemas/`（統合）
+- `product/config/knowledge.schema.json` + `product/protocol/schemas/*.json` → `schemas/` (consolidated)
 - `product/templates/.dialogue.yml` → `templates/.dialogue.yml`
 - `development/dogfooding/` → `dogfooding/`
-- `development/scripts/` → `scripts/`、`development/tests/` → `tests/`
-- `development/{pyproject.toml,uv.lock,.python-version}` → ルート
-- 陳腐化した `product/README.md` / `development/README.md` を削除
+- `development/scripts/` → `scripts/`, `development/tests/` → `tests/`
+- `development/{pyproject.toml,uv.lock,.python-version}` → root
+- Deleted the stale `product/README.md` / `development/README.md`
 
-### 配布機構
-- `.claude-plugin/marketplace.json`（name/owner/plugins[{ name:"dialogue", source:"./" }]）
-- `.claude-plugin/plugin.json`（name:"dialogue", version, license:MIT …）
-- `source: "./"` により `skills/dialogue-knowledge/SKILL.md` が自動発見される
-- `LICENSE`（MIT）を追加
+### Distribution mechanism
+- `.claude-plugin/marketplace.json` (name/owner/plugins[{ name:"dialogue", source:"./" }])
+- `.claude-plugin/plugin.json` (name:"dialogue", version, license:MIT …)
+- With `source: "./"`, `skills/dialogue-knowledge/SKILL.md` is auto-discovered
+- Added `LICENSE` (MIT)
 
-### 追随更新
-- `.dialogue.yml` の `source.path`: `dogfooding`
-- `scripts/validate_repository.py`（ROOT階層、schema/protocol/dogfooding/tests/skills の各 glob）
-- `scripts/check_conformance.py`（ROOT階層、cases glob）
-- `tests/dialogue_support.py`（REPO_ROOT階層、RESOLVER）、`tests/test_skill_activation.py`、`tests/test_knowledge_source.py`
-- `.github/workflows/ci.yml`（`working-directory: development` を除去、root から実行）
-- `AGENTS.md` / `README.md` / `protocol/protocol-conformance.md` の全パス、`schemas/knowledge.schema.json` の `$id`
+### Follow-on updates
+- `source.path` in `.dialogue.yml`: `dogfooding`
+- `scripts/validate_repository.py` (ROOT hierarchy, the globs for schema/protocol/dogfooding/tests/skills)
+- `scripts/check_conformance.py` (ROOT hierarchy, cases glob)
+- `tests/dialogue_support.py` (REPO_ROOT hierarchy, RESOLVER), `tests/test_skill_activation.py`, `tests/test_knowledge_source.py`
+- `.github/workflows/ci.yml` (removed `working-directory: development`, run from root)
+- All paths in `AGENTS.md` / `README.md` / `protocol/protocol-conformance.md`, and the `$id` in `schemas/knowledge.schema.json`
 
-### ガバナンス
-- `STATE-PRODUCT-SCOPE-001` rev3→4：配布境界の再定義（受入基準 #6）、レイアウトと配布経路を更新
+### Governance
+- `STATE-PRODUCT-SCOPE-001` rev3→4: redefined the distribution boundary (acceptance criterion #6), updated the layout and distribution path
 
 ## Rationale
 
-`product/` は非慣用かつ冗長。skills を直下に出しモダンな潮流に沿わせる。配布のしやすさの本体は `.claude-plugin` であり、product/development の分離思想は「配布境界を manifest が宣言」する形で保持する。
+`product/` is non-idiomatic and redundant. Surfacing skills directly at the top level follows the modern trend. The core of distribution ease is `.claude-plugin`, and the separation philosophy of product/development is preserved in the form of "the manifest declares the distribution boundary."
 
 ## Impact
 
-- `/plugin marketplace add tanb/dialogue` → `/plugin install dialogue@dialogue`、および `npx skills add tanb/dialogue` で配布可能。
-- 検証は root から `uv run python scripts/validate_repository.py` / `uv run pytest`。
-- プロトコル契約・スキーマ・安全判断の意味は不変。歴史的 Proposal/Change Record の旧パスは記録として保持。
+- Distributable via `/plugin marketplace add tanb/dialogue` → `/plugin install dialogue@dialogue`, and via `npx skills add tanb/dialogue`.
+- Verification runs from root with `uv run python scripts/validate_repository.py` / `uv run pytest`.
+- The meaning of the protocol contract, schemas, and safety judgments is unchanged. The old paths in historical Proposals/Change Records are retained as records.

@@ -1,7 +1,7 @@
 ---
 id: GLOSSARY-001
 type: state
-title: Dialogue 用語集
+title: Dialogue Glossary
 status: active
 scope:
   project: dialogue
@@ -22,192 +22,192 @@ extensions:
   created_time_precision: date
 ---
 
-# Dialogue 用語集
+# Dialogue Glossary
 
-## 規範語
+## Normative terms
 
-本プロジェクトの仕様では、次の語を規範的な強さで使用する。
+In this project's specifications, the following terms are used with normative strength.
 
-- **MUST（必須）**: 適合する実装または運用が必ず満たす要件
-- **MUST NOT（禁止）**: 適合する実装または運用が行ってはならない事項
-- **SHOULD（推奨）**: 正当な理由がある場合のみ逸脱でき、その理由を説明できる要件
-- **SHOULD NOT（非推奨）**: 正当な理由がある場合のみ実施でき、その理由を説明できる事項
-- **MAY（任意）**: 実装または運用が選択できる事項
+- **MUST (required)**: A requirement that a conforming implementation or operation always satisfies
+- **MUST NOT (prohibited)**: Something that a conforming implementation or operation must not do
+- **SHOULD (recommended)**: A requirement that may be deviated from only with a legitimate reason, which can be explained
+- **SHOULD NOT (not recommended)**: Something that may be done only with a legitimate reason, which can be explained
+- **MAY (optional)**: Something that an implementation or operation may choose
 
-日本語のみで記述する場合も、文脈上の強さは括弧内の規範語に従う。
+Even when written in English alone, the contextual strength follows the normative term in parentheses.
 
-## 知識モデル
+## Knowledge model
 
-### Knowledge（知識）
+### Knowledge
 
-プロジェクト参加者の判断または行動に利用される、意味を持った情報。単に保存されている文章ではなく、適用範囲、状態、根拠、責任主体を伴う。
+Meaningful information used for the judgment or action of project participants. It is not merely stored text; it carries an applicable scope, state, basis, and responsible subject.
 
-### Knowledge Item（知識項目）
+### Knowledge Item
 
-独立して識別、参照、状態管理できる知識の最小管理単位。実装上は一つの文書、一つのページ、または文書内の構造化された節になり得る。
+The smallest managed unit of knowledge that can be independently identified, referenced, and state-managed. In implementation, it can be a single document, a single page, or a structured section within a document.
 
-### Claim（主張）
+### Claim
 
-真偽または有効性を評価できる一つの記述。同じ Knowledge Item に複数の Claim が含まれる場合がある。
+A single statement whose truth or validity can be evaluated. The same Knowledge Item may contain multiple Claims.
 
-### Fact（事実）
+### Fact
 
-観測または信頼できる根拠によって確認可能な Claim。将来計画、提案、選好、未承認の判断は Fact と呼ばない。
+A Claim that can be confirmed by observation or a trustworthy basis. Future plans, proposals, preferences, and unapproved judgments are not called Facts.
 
-### Decision（意思決定）
+### Decision
 
-権限を持つ人間が、複数の可能性から採用する方針を確定したもの。Decision は事実とは異なるが、承認後はプロジェクトの規範的知識になり得る。
+A policy that a human with authority has settled by adopting it from among multiple possibilities. A Decision differs from a fact, but after approval it can become normative knowledge of the project.
 
-### Evidence（根拠）
+### Evidence
 
-Claim、変更、状態判定を支持する参照可能な情報。ソースコード、承認記録、計測結果、契約、外部仕様などを含む。
+Referenceable information that supports a Claim, change, or state determination. It includes source code, approval records, measurement results, contracts, and external specifications.
 
-### Provenance（来歴）
+### Provenance
 
-知識が、誰により、いつ、どの根拠または変更を通じて作られたかを追跡できる情報。
+Information that allows tracing by whom, when, and through which basis or change a piece of knowledge was created.
 
-## 文書の役割
+## Roles of documents
 
-### State Document（状態文書）
+### State Document
 
-ある対象の現在有効な状態を説明する文書。原則として更新型であり、過去の全経緯を本文へ蓄積しない。
+A document that describes the currently valid state of a target. In principle it is an update type, and does not accumulate the entire past history into its body.
 
-### Change Record（変更履歴文書）
+### Change Record
 
-知識の意味上の変更について、変更前、変更後、理由、根拠、影響、決定主体を記録する独立文書。Git コミット履歴とは別のプロトコル上の成果物である。
+An independent document that records, for a semantic change of knowledge, the before, after, reason, basis, impact, and deciding subject. It is a protocol artifact separate from the Git commit history.
 
-### Proposal（提案）
+### Proposal
 
-まだ承認されていない変更候補。Proposal は現在状態の正本として扱わない。
+A change candidate that has not yet been approved. A Proposal is not treated as the source of truth for the current state.
 
-### Source of Truth（正本）
+### Source of Truth
 
-特定の対象と適用範囲について、現在状態を判断するときに最優先で参照する Knowledge Item。正本であることは、明示的な規則またはメタデータによって判定できなければならない。
+The Knowledge Item that is referenced first when judging the current state for a specific target and applicable scope. Being the source of truth must be determinable by an explicit rule or metadata.
 
-### Derived Artifact（派生成果物）
+### Derived Artifact
 
-正本から再生成可能な要約、検索インデックス、Embedding、キャッシュ、ダッシュボードなど。派生成果物を単独で正本にしてはならない。
+A summary, search index, Embedding, cache, dashboard, and the like that can be regenerated from the source of truth. A derived artifact must not be made the source of truth on its own.
 
-## 状態
+## States
 
-### Draft（下書き）
+### Draft
 
-作成途中であり、レビューまたは承認の対象になっていない状態。
+A state that is in the middle of creation and is not yet the target of review or approval.
 
-### Proposed（提案中）
+### Proposed
 
-変更候補として提示され、判断を待っている状態。
+A state that has been presented as a change candidate and is awaiting a judgment.
 
-### Active（有効）
+### Active
 
-定義された適用範囲において、現在の判断と行動に通常使用する状態。
+A state that is normally used for current judgment and action within a defined applicable scope.
 
-### Superseded（置換済み）
+### Superseded
 
-後継の Knowledge Item によって役割を置き換えられた状態。後継への参照を持たなければならない。
+A state whose role has been replaced by a successor Knowledge Item. It must hold a reference to the successor.
 
-### Inactive（非アクティブ）
+### Inactive
 
-現在の通常業務には使用しないが、まだ歴史資料として固定されていない状態。再評価または再有効化の対象になり得る。
+A state that is not used for current ordinary work but is not yet fixed as a historical resource. It can be the target of re-evaluation or re-activation.
 
-### Archived（アーカイブ済み）
+### Archived
 
-通常の探索と判断から除外された Cold Knowledge。削除済みを意味せず、明示的な経緯調査では参照できる。
+Cold Knowledge that has been excluded from ordinary retrieval and judgment. It does not mean deleted, and can be referenced in an explicit history investigation.
 
-### Rejected（却下済み）
+### Rejected
 
-提案が採用されなかった状態。現在状態として使用せず、却下理由の調査に利用する。
+A state in which a proposal was not adopted. It is not used as the current state and is used for investigating the rejection reason.
 
-### Approved（承認済み）
+### Approved
 
-権限を持つ人間がProposalまたはChange Recordを承認したが、対象のState Documentへの適用完了をまだ意味しない状態。
+A state in which a human with authority has approved a Proposal or Change Record, but it does not yet mean that application to the target State Document is complete.
 
-### Applied（適用済み）
+### Applied
 
-承認されたChange Setが対象へ反映され、事後条件の検証まで完了した状態。
+A state in which an approved Change Set has been reflected onto the target and verification of the post-conditions is also complete.
 
-### Withdrawn（取下げ済み）
+### Withdrawn
 
-提案者または権限を持つActorが、判断前のProposalを取り下げた状態。却下とは区別する。
+A state in which the proposer or an Actor with authority has withdrawn a Proposal before a judgment. It is distinguished from rejection.
 
-### Failed（適用失敗）
+### Failed
 
-Change Setの適用または事後検証が完了せず、回復または人間の判断を必要とする状態。
+A state in which the application or post-verification of a Change Set did not complete, and recovery or a human judgment is required.
 
-## 整合性
+## Consistency
 
-### Duplicate（重複）
+### Duplicate
 
-同じ Claim が複数箇所で独立に維持されている状態。単なる引用や正本への参照は重複とみなさない。
+A state in which the same Claim is maintained independently in multiple places. A mere citation or a reference to the source of truth is not regarded as a duplicate.
 
-### Conflict（競合）
+### Conflict
 
-同じ対象と適用範囲について、同時には成立しない複数の Claim が有効候補として存在する状態。
+A state in which, for the same target and applicable scope, multiple Claims that cannot hold simultaneously exist as valid candidates.
 
-### Ambiguity（曖昧さ）
+### Ambiguity
 
-利用可能な情報だけでは、対象、意味、状態、適用範囲、または優先順位を一意に確定できない状態。
+A state in which, with only the available information, the target, meaning, state, applicable scope, or priority cannot be uniquely settled.
 
-### Staleness（陳腐化）
+### Staleness
 
-時間経過または周辺状況の変化により、Knowledge Item の現在妥当性に合理的な疑いがある状態。古いことだけでは Staleness の確定条件にならない。
+A state in which there is reasonable doubt about the current validity of a Knowledge Item due to the passage of time or changes in surrounding circumstances. Being old alone is not a determining condition of Staleness.
 
-### Knowledge Drift（知識ドリフト）
+### Knowledge Drift
 
-正本、実装、運用、派生成果物の内容が時間とともに乖離する現象。
+The phenomenon in which the content of the source of truth, implementation, operation, and derived artifacts diverges over time.
 
-### Broken Reference（参照切れ）
+### Broken Reference
 
-Knowledge Item が参照する対象を解決できない、または意図した対象と一致しない状態。
+A state in which the target referenced by a Knowledge Item cannot be resolved, or does not match the intended target.
 
-## 主体と権限
+## Subjects and authority
 
-### Actor（主体）
+### Actor
 
-プロトコル上の操作を行う人間、エージェント、または自動処理。
+A human, agent, or automated process that performs an operation on the protocol.
 
-### Human Authority（人間の決定主体）
+### Human Authority
 
-定義された範囲の意味上の変更、競合解消、例外承認について最終決定権を持つ人間。
+A human who holds the final decision-making power over semantic changes, conflict resolution, and exception approval within a defined scope.
 
-### Knowledge Steward（知識管理責任者）
+### Knowledge Steward
 
-知識構造、品質、ライフサイクル、正本規則の運用を管理する人間。Human Authority と同一人物でもよい。
+A human who manages the operation of the knowledge structure, quality, lifecycle, and source-of-truth rules. May be the same person as the Human Authority.
 
-### Agent（エージェント）
+### Agent
 
-付与された権限とスキルに従い、知識の探索、提案、更新、検証、整理を行う AI 主体。権限は能力ではなく明示的な委任によって決まる。
+An AI subject that, following the granted authority and skills, performs retrieval, proposal, update, verification, and curation of knowledge. Its authority is determined by explicit delegation, not by capability.
 
-### Knowledge Curator（知識保守主体）
+### Knowledge Curator
 
-重複、競合、参照切れ、陳腐化を検出し、統合または状態変更を提案する役割。エージェントまたは人間が担当できる。
+A role that detects duplication, conflict, broken references, and staleness, and proposes consolidation or state changes. An agent or a human can take charge of it.
 
-### Approval（承認）
+### Approval
 
-権限を持つ人間が、対象、変更内容、適用範囲を識別可能な形で許可する行為。
+The act by which a human with authority permits, in an identifiable form, the target, change content, and applicable scope.
 
-### Delegation（委任）
+### Delegation
 
-Human Authority が、限定された操作、対象、期間、条件について別の Actor に権限を付与すること。
+The Human Authority granting authority to another Actor for limited operations, targets, periods, and conditions.
 
-### Escalation（エスカレーション）
+### Escalation
 
-エージェントが安全に処理を続行できないと判断し、根拠、競合、影響、選択肢を添えて Human Authority に決定を求める手続き。
+The procedure in which an agent judges that it cannot safely continue processing and asks the Human Authority for a decision, attaching the basis, conflict, impact, and options.
 
-## 基盤
+## Foundation
 
-### Knowledge Backend（知識基盤）
+### Knowledge Backend
 
-Knowledge Item を保存、取得、更新するサービスまたは媒体。Notion、Obsidian、GitHub、ファイルシステムなどを含む。
+A service or medium that stores, retrieves, and updates Knowledge Items. It includes Notion, Obsidian, GitHub, a filesystem, and so on.
 
-### Adapter（アダプター）
+### Adapter
 
-プロトコル上の共通操作を、特定の Knowledge Backend の操作へ変換する実装。
+An implementation that translates the common operations on the protocol into the operations of a specific Knowledge Backend.
 
-### Repository（リポジトリ）
+### Repository
 
-Knowledge Item を集合として管理する論理的な保管領域。Git リポジトリに限定しない。
+A logical storage area that manages Knowledge Items as a set. It is not limited to a Git repository.
 
-### Retrieval Index（探索インデックス）
+### Retrieval Index
 
-全文検索、メタデータ検索、ベクトル検索などを高速化する派生データ。現在性と権限の最終判定には正本を再確認する。
+Derived data that speeds up full-text search, metadata search, vector search, and the like. For the final determination of current validity and authority, the source of truth is re-confirmed.
