@@ -7,13 +7,16 @@ scope:
   project: dialogue
   domain: governance
   subject: glossary
-revision: 2
+revision: 3
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-16T03:08:48+09:00"
+updated_at: "2026-07-18T07:00:00+09:00"
 created_by: agent:codex
-updated_by: agent:codex
+updated_by: agent:claude
 related:
   - PROPOSAL-0001
+  - PROPOSAL-0020
+  - CHANGE-0020
+  - STATE-MAINTENANCE-CYCLE-001
 canonical_for: dialogue/governance/glossary
 owners:
   - person:project-owner
@@ -180,7 +183,7 @@ An AI subject that, following the granted authority and skills, performs retriev
 
 ### Knowledge Curator
 
-A role that detects duplication, conflict, broken references, and staleness, and proposes consolidation or state changes. An agent or a human can take charge of it.
+A role that detects the six maintenance targets — duplication, conflict, broken references, staleness, missing Change Records, and derived-artifact drift — and proposes consolidation, re-validation, or state changes. An agent or a human can take charge of it. Detection is provided as a bundled, CI-independent deterministic checker (`skills/dialogue-knowledge/scripts/check-maintenance`); see `STATE-MAINTENANCE-CYCLE-001`.
 
 ### Approval
 
