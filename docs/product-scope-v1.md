@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: product
   subject: product-scope-v1
-revision: 4
+revision: 5
 created_at: "2026-07-16T04:00:43+09:00"
-updated_at: "2026-07-18T02:30:00+09:00"
+updated_at: "2026-07-18T21:30:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -23,6 +23,8 @@ related:
   - CHANGE-0013
   - PROPOSAL-0015
   - CHANGE-0015
+  - PROPOSAL-0021
+  - CHANGE-0022
 canonical_for: dialogue/product/scope-v1
 owners:
   - person:project-owner
@@ -50,7 +52,8 @@ Knowledge Git Repository
 
 - `.dialogue.yml` v1 Schema
 - An adoption `.dialogue.yml` template describing a Git source
-- An Agent Skill that reads `.dialogue.yml` and resolves the Knowledge source
+- An Agent Skill (`dialogue-knowledge`) that reads `.dialogue.yml` and resolves the Knowledge source
+- A history-maintenance Agent Skill (`dialogue-history`) for Change Record Merge and lossless Pack
 - The Knowledge Governance and Knowledge Management Protocol
 
 The distribution boundary is declared by `.claude-plugin/` (the plugin manifest). The deliverables are placed under `skills/` (the Agent Skill), `protocol/` (the specification), `schemas/` (the JSON Schema), and `templates/` (the adoption template). Dialogue's own design knowledge, Proposals, and Change Records (`dogfooding/`), the tests (`tests/`), and the validation scripts (`scripts/`) are separated from these as internal assets.
@@ -66,12 +69,16 @@ source:
   url: git@github.com:example/project-knowledge.git
   ref: main
   path: .
+history:
+  pack:
+    strategy: none
 ```
 
 - `type` is only `git` in v1.
 - `url` is the remote of the Knowledge Git Repository. Do not include credentials.
 - `ref` is a shared branch, tag, or commit, with a default of `main`.
 - `path` is the document root within the checkout, with a default of `.`.
+- `history.pack` selects the Change Record Pack granularity, chosen at bootstrap: `strategy: none` disables Pack, `time` needs a `period`, `count` needs a `size`. Write an explicit `strategy` rather than omitting it; never write `off` (a YAML 1.1 boolean).
 - Reject unknown fields, absolute paths, and paths containing `..`.
 
 ## Required user flow
@@ -92,6 +99,8 @@ source:
 - Creation and editing of state documents, Proposals, and Change Records
 - Basic exploration distinction of Active, Superseded, and Archived
 - Human Escalation on duplication or conflict
+- Change Record Merge for divergent revisions of the same canonical target
+- Lossless Pack of closed change history, with granularity selected via `history.pack`
 
 ## Outside initial scope
 
