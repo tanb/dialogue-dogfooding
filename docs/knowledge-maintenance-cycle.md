@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: maintenance-cycle
-revision: 1
+revision: 2
 created_at: "2026-07-18T07:00:00+09:00"
-updated_at: "2026-07-18T07:00:00+09:00"
+updated_at: "2026-07-18T08:00:00+09:00"
 created_by: agent:claude
 updated_by: agent:claude
 related:
@@ -18,6 +18,7 @@ related:
   - FAILURE-MODEL-001
   - PROPOSAL-0020
   - CHANGE-0020
+  - CHANGE-0021
 canonical_for: dialogue/governance/maintenance-cycle
 owners:
   - person:project-owner
@@ -51,6 +52,8 @@ Two tiers, mirroring the hard/soft split of Authority gap detection:
 
 - **Blocking (fail-closed)** — a `conflict` makes truth-resolution unsafe. Stop, treat neither document as the source of truth, and escalate to a human. The bundled checker exits non-zero.
 - **Review** — duplicate, broken reference, missing Change Record, staleness, and derived-artifact drift are surfaced as maintenance items. They never halt the system.
+
+The fail-closed boundary is a **settled decision**: only a canonical `conflict` is blocking. The other five categories remain review items and must not be escalated to blocking without a new governance decision, because they are recoverable maintenance work whose mechanical detection carries a false-positive risk that must not be allowed to halt operation.
 
 ## Correction within authority
 
