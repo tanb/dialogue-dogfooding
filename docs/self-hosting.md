@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: development
   subject: self-hosting
-revision: 5
+revision: 6
 created_at: "2026-07-16T04:29:45+09:00"
-updated_at: "2026-07-18T05:00:00+09:00"
+updated_at: "2026-07-18T06:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -25,6 +25,8 @@ related:
   - CHANGE-0015
   - PROPOSAL-0018
   - CHANGE-0018
+  - PROPOSAL-0019
+  - CHANGE-0019
 canonical_for: dialogue/development/self-hosting
 owners:
   - person:project-owner
@@ -33,7 +35,7 @@ extensions:
   activation_status: active
   knowledge_source_status: active
   source_topology: separate-repository
-  repository_visibility: private
+  repository_visibility: public
 ---
 
 # Dialogue Self-hosting Policy
@@ -62,9 +64,9 @@ The user does not need to specify the Skill name. However, the Agent distinguish
 - Git ref: `main`
 - Knowledge root: `.` (repository top level)
 - Source topology: separate-repository
-- Repository visibility: private
+- Repository visibility: public
 
-Dialogue's code repository `tanb/dialogue` points, via `.dialogue.yml`, to the independent Private Knowledge Repository `tanb/dialogue-dogfooding`. It treats the `main` top level of a dedicated checkout as the Knowledge root. This configuration dogfoods Dialogue's primary use case (a shared Knowledge Repository independent of the project) itself, and at the same time verifies the Repository separation of code and Knowledge. To avoid including Dialogue's internal governance instance in the deliverables (Skill / protocol / schemas / templates), the Knowledge is separated from the product repository.
+Dialogue's code repository `tanb/dialogue` points, via `.dialogue.yml`, to the independent Knowledge Repository `tanb/dialogue-dogfooding`. It treats the `main` top level of a dedicated checkout as the Knowledge root. This configuration dogfoods Dialogue's primary use case (a shared Knowledge Repository independent of the project) itself, and at the same time verifies the Repository separation of code and Knowledge. To avoid including Dialogue's internal governance instance in the deliverables (Skill / protocol / schemas / templates), the Knowledge is separated from the product repository.
 
 ## Evaluation signals
 
