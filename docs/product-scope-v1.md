@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: product
   subject: product-scope-v1
-revision: 5
+revision: 6
 created_at: "2026-07-16T04:00:43+09:00"
-updated_at: "2026-07-18T21:30:00+09:00"
+updated_at: "2026-07-18T22:30:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -25,6 +25,7 @@ related:
   - CHANGE-0015
   - PROPOSAL-0021
   - CHANGE-0022
+  - CHANGE-0023
 canonical_for: dialogue/product/scope-v1
 owners:
   - person:project-owner
@@ -123,3 +124,4 @@ The Filesystem Adapter and CLI created during initial validation are stored in `
 4. Current knowledge can be searched from the Git Knowledge Repository and answered.
 5. A semantic Change Record can be left when editing.
 6. The deliverables (`skills/` `protocol/` `schemas/` `templates/`) and the internal assets (`dogfooding/` `scripts/` `tests/`) are separated by directory boundaries, and the distribution boundary is declared by `.claude-plugin/`.
+7. `history.pack` is accepted or rejected consistently by both `resolve-source` and the declared `.dialogue.yml` JSON Schema (`schemas/knowledge.schema.json`).
