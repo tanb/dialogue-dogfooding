@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: glossary
-revision: 4
+revision: 5
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-21T12:00:00+09:00"
+updated_at: "2026-07-21T13:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -20,6 +20,10 @@ related:
   - PROPOSAL-0024
   - CHANGE-0024
   - STATE-CONFIDENTIALITY-BOUNDARY-001
+  - PROPOSAL-0025
+  - CHANGE-0025
+  - STATE-KNOWLEDGE-PRACTICES-001
+  - STATE-DISPOSITION-HOLD-001
 canonical_for: dialogue/governance/glossary
 owners:
   - person:project-owner
@@ -221,6 +225,24 @@ The rule that Confidential Content is surfaced only to the audience and scope a 
 ### Redaction
 
 Removing or masking confidential values from a summary, a Derived Artifact, or a governed field while keeping a pointer to the source of truth, so the record remains useful without carrying the confidential value.
+
+## Disposition and hold
+
+### Disposition
+
+Deactivating, archiving, or destroying a Knowledge Item at the end of its useful life. In this project it is a governed act an agent proposes and a human decides, never cleanup the agent performs on age alone. See `STATE-DISPOSITION-HOLD-001`.
+
+### Retention
+
+The requirement to keep a Knowledge Item for a defined period or until a condition is met. Its periods and obligations are defined by additional policy and enforced by the Backend; the agent observes them and confirms retention requirements before disposition.
+
+### Legal Hold
+
+A signal that a Knowledge Item must not be disposed of — deactivated, archived, Packed, or deleted — while the hold is active, regardless of age or terminal state. It is enforced by the Backend and additional policy; the agent observes it and holds back. A declared retention or legal-hold signal is an optional, forward-compatible seam like the Sensitivity Label.
+
+### Currency
+
+The property of being the up-to-date source of truth for a target and scope, confirmed against Change Records and provenance rather than assumed. An agent verifies currency before using knowledge to answer or act, not only when editing.
 
 ## Foundation
 

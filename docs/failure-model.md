@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: failure-model
-revision: 4
+revision: 5
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-21T12:00:00+09:00"
+updated_at: "2026-07-21T13:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -21,6 +21,9 @@ related:
   - STATE-CONFIDENTIALITY-BOUNDARY-001
   - PROPOSAL-0024
   - CHANGE-0024
+  - STATE-DISPOSITION-HOLD-001
+  - PROPOSAL-0025
+  - CHANGE-0025
 canonical_for: dialogue/governance/failure-model
 owners:
   - person:project-owner
@@ -231,6 +234,16 @@ A conforming protocol and skill must guarantee at least the following.
 **Detection:** Before presenting or writing, reconcile the sensitivity label — or, absent a label, the presence of a secret or PII in the content — against the audience and the destination field. Treat provenance and derived fields as broadly readable within the Repository. This is a behavioral obligation, not a mechanical checker: automatic PII or secret detection is heuristic, and a "clean" result would create false assurance.
 
 **Response:** Do not present or transcribe by value; reference the confidential source by id or pointer and redact confidential values in summaries and Derived Artifacts. If the authorization or the confidential nature is uncertain, halt and escalate. Do not work around a Backend read or write denial through an alternate path. Access control, encryption, and retention remain Backend responsibilities; this failure concerns only what the agent does with knowledge it has already legitimately read.
+
+### F18. Premature or held disposition
+
+**State:** An agent deactivates, archives, Packs, or deletes a Knowledge Item without confirming its retention requirements, or while an active retention or legal hold forbids it.
+
+**Example:** An agent Packs a closed partition whose records are all terminal, but one record is under a legal hold; or it archives a State on age alone without checking retention requirements or restorability.
+
+**Detection:** Before any disposition, reconcile the declared retention or legal-hold signal — and the retention requirements that Knowledge Management Protocol §7.6 and Governance §12 already require verifying — against the intended action. A hold is an additional block on Pack's terminal-only seal precondition (§7.8), not a relaxation of it. This is distinct from F4 (stale active knowledge, a staleness judgment): F18 concerns retention and hold, not currency.
+
+**Response:** Propose disposition for a human decision rather than executing it; age alone is never sufficient. If a hold is active, halt and escalate rather than disposing. Keep the id, provenance, Change Record, and successor references resolvable after Archive — deletion is never the implementation of Archive (invariant 10). Defining and enforcing retention periods and legal obligations remain additional-policy and Backend responsibilities; this failure concerns only the agent observing them and holding back.
 
 ## Escalation conditions
 
