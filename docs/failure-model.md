@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: failure-model
-revision: 3
+revision: 4
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-18T04:00:00+09:00"
+updated_at: "2026-07-21T12:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -18,6 +18,9 @@ related:
   - PROPOSAL-0001
   - PROPOSAL-0017
   - CHANGE-0017
+  - STATE-CONFIDENTIALITY-BOUNDARY-001
+  - PROPOSAL-0024
+  - CHANGE-0024
 canonical_for: dialogue/governance/failure-model
 owners:
   - person:project-owner
@@ -218,6 +221,16 @@ A conforming protocol and skill must guarantee at least the following.
 **Detection:** Mechanically reconcile `created_by`, `updated_by`, `applied_by`, `proposed_by`, and `approvals[].actor_ref` against the Authority Registry. Provide this as a deterministic checker that the Skill can run without depending on CI.
 
 **Response:** If a C3/C4 approver is unregistered, halt fail-closed and escalate (the provenance of the approval is invalid). Other unregistered actors are presented as maintenance items. Do not automatically promote to permission based on age or silence.
+
+### F17. Confidential exposure through the agent
+
+**State:** An agent carries confidential content — a secret, credential, or PII — beyond its authorized audience, or copies it into a broadly readable destination such as a Change Record `reason`, a commit message, or a Derived Artifact.
+
+**Example:** While recording why a decision changed, an agent transcribes a customer's name and contact details into the Change Record `reason`, exposing them to everyone who can read the change history.
+
+**Detection:** Before presenting or writing, reconcile the sensitivity label — or, absent a label, the presence of a secret or PII in the content — against the audience and the destination field. Treat provenance and derived fields as broadly readable within the Repository. This is a behavioral obligation, not a mechanical checker: automatic PII or secret detection is heuristic, and a "clean" result would create false assurance.
+
+**Response:** Do not present or transcribe by value; reference the confidential source by id or pointer and redact confidential values in summaries and Derived Artifacts. If the authorization or the confidential nature is uncertain, halt and escalate. Do not work around a Backend read or write denial through an alternate path. Access control, encryption, and retention remain Backend responsibilities; this failure concerns only what the agent does with knowledge it has already legitimately read.
 
 ## Escalation conditions
 

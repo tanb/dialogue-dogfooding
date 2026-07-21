@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: glossary
-revision: 3
+revision: 4
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-18T07:00:00+09:00"
+updated_at: "2026-07-21T12:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -17,6 +17,9 @@ related:
   - PROPOSAL-0020
   - CHANGE-0020
   - STATE-MAINTENANCE-CYCLE-001
+  - PROPOSAL-0024
+  - CHANGE-0024
+  - STATE-CONFIDENTIALITY-BOUNDARY-001
 canonical_for: dialogue/governance/glossary
 owners:
   - person:project-owner
@@ -196,6 +199,28 @@ The Human Authority granting authority to another Actor for limited operations, 
 ### Escalation
 
 The procedure in which an agent judges that it cannot safely continue processing and asks the Human Authority for a decision, attaching the basis, conflict, impact, and options.
+
+## Confidentiality
+
+### Confidential Content
+
+Content whose disclosure must be limited: a secret, a credential, or PII. It may appear inside any Knowledge Item. The Backend enforces its access control; the agent must not carry it outside that boundary through chat, provenance fields, or Derived Artifacts. See `STATE-CONFIDENTIALITY-BOUNDARY-001`.
+
+### PII (Personally Identifiable Information)
+
+Information that identifies a specific individual on its own or in combination — for example a name, contact detail, government or account identifier, or health and financial data. A category of Confidential Content.
+
+### Sensitivity Label
+
+A machine-readable signal on a Knowledge Item (for example `extensions.sensitivity` of `public`, `internal`, or `confidential`) that declares its handling class. It is the seam between Backend enforcement and agent observation. It is optional: when absent, the agent judges sensitivity conservatively from content.
+
+### Need-to-know
+
+The rule that Confidential Content is surfaced only to the audience and scope a task actually requires, not to everyone technically able to read it.
+
+### Redaction
+
+Removing or masking confidential values from a summary, a Derived Artifact, or a governed field while keeping a pointer to the source of truth, so the record remains useful without carrying the confidential value.
 
 ## Foundation
 
