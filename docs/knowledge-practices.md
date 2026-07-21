@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: knowledge-practices
-revision: 1
+revision: 2
 created_at: "2026-07-21T13:00:00+09:00"
-updated_at: "2026-07-21T13:00:00+09:00"
+updated_at: "2026-07-21T14:00:00+09:00"
 created_by: agent:claude
 updated_by: agent:claude
 related:
@@ -19,6 +19,8 @@ related:
   - STATE-CONFIDENTIALITY-BOUNDARY-001
   - PROPOSAL-0025
   - CHANGE-0025
+  - PROPOSAL-0026
+  - CHANGE-0026
 canonical_for: dialogue/governance/knowledge-practices
 owners:
   - person:project-owner
@@ -31,7 +33,7 @@ extensions:
 
 ## Decision
 
-Three read-and-write disciplines are mandatory practices of the distributed `dialogue-knowledge` Skill. Each operationalizes an existing governance rule at the point where an agent actually reads or writes, rather than adding new rules. None ships a deterministic checker, because each is a semantic judgment; the existing `check-maintenance` targets are the mechanical safety net after the fact.
+Four read-and-write disciplines are mandatory practices of the distributed `dialogue-knowledge` Skill. Each operationalizes an existing governance rule at the point where an agent actually reads or writes, rather than adding new rules. None ships a deterministic checker, because each is a semantic judgment; the existing `check-maintenance` targets are the mechanical safety net after the fact.
 
 ## B. Search before create (prevent duplication at its source)
 
@@ -56,6 +58,17 @@ Before using knowledge to answer or act — not only when editing — verify it 
 - If the target cannot be uniquely resolved as current, treat it as unresolved and escalate rather than answering from a stale or ambiguous basis.
 - This applies the Truth Resolution rules of Knowledge Governance (`GOVERNANCE-001` §11) and Resolve (Knowledge Management Protocol §7.1) **at read time**, not just at edit time. It does not create a new resolution rule; it strengthens the read-time application of failures F4 (stale active knowledge), F10 (archive leakage), and F14 (retrieval omission).
 
+## F. Attach only verifiable evidence
+
+When proposing or recording a change, attach only evidence you can verify, and keep it distinct from your own claims. This discipline matters most where it is needed here: a shared record written and read by a mix of humans and multiple agents, where one actor acts on what another wrote.
+
+- Distinguish verifiable evidence (a reference that resolves, a measurement you can reproduce, an approval trail) from a claim (your own reasoning or assertion). Label the latter as a claim, not as evidence.
+- Confirm each reference exists, is current, and actually supports the point before citing it. Never present an unverifiable or fabricated basis — a reference or measurement you cannot confirm — as evidence.
+- Do not launder another actor's unverified claim into evidence. In a mix of humans and multiple agents, an unconfirmed assertion repeated across actors can acquire false authority; treat it as a claim until independently verified. This is the failure mode a multi-agent setting adds that a single author rarely hits.
+- Link the human approval trail in a form that can be re-checked from the Change Record, so a later reader can re-verify the basis rather than trust it.
+
+This prevents F11 (broken provenance) and F19 (fabricated or unverifiable evidence) at their source. It operationalizes the glossary distinction between Fact, Claim, and Evidence, and Governance principle 5 (traceable to rationale and deciding actor), at the moment an agent writes. As with the other practices, no checker is bundled: whether a basis truly supports a claim is a semantic judgment, and the human approver's ability to re-verify — rather than rubber-stamp — is the real safeguard.
+
 ## Relationship to existing knowledge
 
 These practices add no new governance rule and change no lifecycle transition. They are read/write disciplines that make existing rules effective at the moment of use. Disposition and hold recognition is a separate, lifecycle-facing practice recorded in `STATE-DISPOSITION-HOLD-001`.
@@ -65,3 +78,4 @@ These practices add no new governance rule and change no lifecycle transition. T
 - The number of would-be duplicates avoided by updating or consolidating an existing State instead of creating a new one
 - The number of new scope terms coined versus reused from existing vocabulary
 - The number of stale-basis answers avoided by a read-time currency check, versus stale answers caught after the fact
+- The number of bases labeled as claims versus attached as evidence, and the number of unverifiable or fabricated references caught before they entered a Change Record

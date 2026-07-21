@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: failure-model
-revision: 5
+revision: 6
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-21T13:00:00+09:00"
+updated_at: "2026-07-21T14:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -24,6 +24,9 @@ related:
   - STATE-DISPOSITION-HOLD-001
   - PROPOSAL-0025
   - CHANGE-0025
+  - STATE-KNOWLEDGE-PRACTICES-001
+  - PROPOSAL-0026
+  - CHANGE-0026
 canonical_for: dialogue/governance/failure-model
 owners:
   - person:project-owner
@@ -244,6 +247,16 @@ A conforming protocol and skill must guarantee at least the following.
 **Detection:** Before any disposition, reconcile the declared retention or legal-hold signal — and the retention requirements that Knowledge Management Protocol §7.6 and Governance §12 already require verifying — against the intended action. A hold is an additional block on Pack's terminal-only seal precondition (§7.8), not a relaxation of it. This is distinct from F4 (stale active knowledge, a staleness judgment): F18 concerns retention and hold, not currency.
 
 **Response:** Propose disposition for a human decision rather than executing it; age alone is never sufficient. If a hold is active, halt and escalate rather than disposing. Keep the id, provenance, Change Record, and successor references resolvable after Archive — deletion is never the implementation of Archive (invariant 10). Defining and enforcing retention periods and legal obligations remain additional-policy and Backend responsibilities; this failure concerns only the agent observing them and holding back.
+
+### F19. Fabricated or unverifiable evidence
+
+**State:** An agent attaches a reference, measurement, or basis it cannot verify — or repeats another actor's unverified claim — as evidence, or presents its own claim as established fact.
+
+**Example:** An agent cites a design document or metric that does not exist, or repeats another agent's unconfirmed assertion as evidence. Across a mix of humans and multiple agents the unconfirmed claim is laundered into apparent fact, and a human approves on a basis that cannot be re-checked.
+
+**Detection:** Before attaching evidence, confirm each reference resolves, is current, and actually supports the claim, and distinguish verifiable evidence from a claim. Treat an unverifiable basis as a claim, not evidence. This is a behavioral obligation, not a mechanical checker: whether a basis truly supports a claim is a semantic judgment.
+
+**Response:** Do not attach unverifiable or fabricated evidence; label it as a claim or omit it, and escalate if the decision depends on it. Link the approval trail so a later reader can re-verify rather than trust. This prevents F11 (broken provenance) at its source and stops evidence laundering across actors. It is distinct from F13 (instruction injection): F13 concerns a document body issuing commands, whereas F19 concerns an unfounded basis presented as evidence.
 
 ## Escalation conditions
 

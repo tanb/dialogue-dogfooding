@@ -7,9 +7,9 @@ scope:
   project: dialogue
   domain: governance
   subject: glossary
-revision: 5
+revision: 6
 created_at: "2026-07-16T00:00:00+09:00"
-updated_at: "2026-07-21T13:00:00+09:00"
+updated_at: "2026-07-21T14:00:00+09:00"
 created_by: agent:codex
 updated_by: agent:claude
 related:
@@ -24,6 +24,8 @@ related:
   - CHANGE-0025
   - STATE-KNOWLEDGE-PRACTICES-001
   - STATE-DISPOSITION-HOLD-001
+  - PROPOSAL-0026
+  - CHANGE-0026
 canonical_for: dialogue/governance/glossary
 owners:
   - person:project-owner
@@ -70,7 +72,11 @@ A policy that a human with authority has settled by adopting it from among multi
 
 ### Evidence
 
-Referenceable information that supports a Claim, change, or state determination. It includes source code, approval records, measurement results, contracts, and external specifications.
+Referenceable information that supports a Claim, change, or state determination. It includes source code, approval records, measurement results, contracts, and external specifications. Evidence must be verifiable — a reference that resolves, a measurement that can be reproduced, an approval trail that can be re-checked. An unverifiable basis is a Claim, not Evidence, and must not be presented as Evidence. See `STATE-KNOWLEDGE-PRACTICES-001` F.
+
+### Evidence Laundering
+
+The failure in which an unverified Claim, repeated across a mix of humans and multiple agents, acquires false authority and is treated as Evidence or Fact. Each actor assumes another verified it, so an unconfirmed assertion passes as an established basis. Prevented by verifying evidence at the point of writing (`FAILURE-MODEL-001` F19).
 
 ### Provenance
 
